@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VMC</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      color: #333;
+      background: #f4f4f4;
+    }
+
+    .hidden { display: none !important; }
+
+    .header {
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .app-container {
+      display: flex;
+      height: calc(100vh - 48px);
+    }
+
+    .sidebar {
+      width: 300px;
+      background: #f9f9f9;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .email {
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-left 0.2s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .email:hover {
+      background-color: #f0f0f0;
+    }
+
+    .email.selected {
+      background-color: #e9eff8;
+      border-left: 3px solid #007bff;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .email-details {
+      flex: 1;
+      padding: 20px;
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      min-height: 200px;
+    }
+    
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: #fdfdfd;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+
+    .action-button {
+      margin-top: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+    
+    .action-button.decrypt {
+      background-color: #ffc107;
+      color: #212529;
+    }
+
+    .compose-form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .compose-form input,
+    .compose-form textarea {
+      margin-bottom: 12px;
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .compose-form button {
+      padding: 12px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-screen {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    .login-box input {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: #dc3545;
+      margin-bottom: 10px;
+      text-align: left;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h3>VMC Login</h3>
+      <div class="error" id="loginError"></div>
+      <input type="text" id="username" placeholder="Username" value="" />
+      <input type="password" id="password" placeholder="Password" value="" />
+      <button onclick="handleLogin()">Login</button>
+    </div>
+  </div>
+
+  <div class="hidden" id="app">
+
+    <div class="header">
+      <div>VMC | Bonds: <span id="bondCount">0</span></div>
+      <div>User: <span id="currentUser"></span></div>
+    </div>
+
+    <div class="app-container">
+      <div class="sidebar" id="inbox">
+        <h2>Inbox</h2>
+      </div>
+
+      <div class="content">
+        <div class="email-details" id="emailDetails">
+          <p>Select an email to view its contents.</p>
+        </div>
+
+        <form class="compose-form" id="composeForm">
+          <h3>Compose Email</h3>
+          <input type="text" name="name" id="formName" placeholder="Your Name" required />
+          <input type="text" name="text" id="formEmail" placeholder="Recipient Name and Group (Vander@Union)" required />
+          <input type="hidden" name="subject" id="formSubject" placeholder="Subject" required />
+          <textarea name="message" id="formMessage" rows="6" placeholder="Write your message here..." required></textarea>
+          <button type="submit">Send Email</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const users = {
+      "Joan Of Arc": {
+        password: "Joana",
+        bonds: 0,
+        emails: [
+          {
+            id: 1,
+            from: "Suon@SGR",
+            subject: "Welcome",
+            body: "Welcome to the SGR."
+          },
+        ]
+      }
+    };
+
+    let currentUserData = null;
+
+    function handleLogin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorDiv = document.getElementById('loginError');
+
+      if (users[username] && users[username].password === password) {
+        currentUserData = users[username];
+        errorDiv.textContent = '';
+        loadApp(username);
+      } else {
+        errorDiv.textContent = 'Invalid username or password.';
+      }
+    }
+
+    function loadApp(username) {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('app').classList.remove('hidden');
+
+      document.getElementById('currentUser').textContent = username;
+      updateHeader();
+      renderInbox();
+
+      document.getElementById('composeForm').addEventListener('submit', handleSend);
+    }
+    
+    function updateHeader() {
+        document.getElementById('bondCount').textContent = currentUserData.bonds;
+    }
+
+    function renderInbox() {
+      const inbox = document.getElementById("inbox");
+      inbox.innerHTML = "<h2>Inbox</h2>";
+
+      currentUserData.emails.forEach(email => {
+        const div = document.createElement("div");
+        div.className = "email";
+        div.dataset.emailId = email.id;
+        div.innerHTML = `
+          <strong>${email.subject}</strong><br>
+          <small>From: ${email.from}</small>
+        `;
+        div.addEventListener('click', () => showEmail(email.id));
+        inbox.appendChild(div);
+      });
+    }
+
+    function showEmail(emailId) {
+      const email = currentUserData.emails.find(e => e.id === emailId);
+      if (!email) return;
+
+      // Highlight selected email in sidebar
+      document.querySelectorAll('.email').forEach(el => {
+        el.classList.toggle('selected', el.dataset.emailId == emailId);
+      });
+
+      const emailDetails = document.getElementById("emailDetails");
+      let actionButton = '';
+
+      if (email.encrypted && !email.isDecrypted) {
+        actionButton = `<button class="action-button decrypt" onclick="decryptEmail(${email.id})">Decrypt Message</button>`;
+      } else {
+        actionButton = `<button class="action-button" onclick='replyToEmail(${email.id})'>Reply</button>`;
+      }
+
+      emailDetails.innerHTML = `
+        <h3>${email.subject}</h3>
+        <p><strong>From:</strong> ${email.from}</p>
+        <pre>${email.isDecrypted ? email.decryptedBody : email.body}</pre>
+        ${actionButton}
+      `;
+    }
+
+    function decryptEmail(emailId) {
+        const email = currentUserData.emails.find(e => e.id === emailId);
+        if (!email || !email.encrypted || email.isDecrypted) return;
+
+        email.isDecrypted = true;
+        if(email.bondReward) {
+            currentUserData.bonds += email.bondReward;
+        }
+
+        updateHeader();
+        showEmail(emailId); // Re-render the email view
+    }
+
+    function replyToEmail(emailId) {
+      const email = currentUserData.emails.find(e => e.id === emailId);
+      if (!email) return;
+
+      const bodyToQuote = email.isDecrypted ? email.decryptedBody : email.body;
+      
+      document.getElementById("formEmail").value = email.from;
+      document.getElementById("formSubject").value = "Re: " + email.subject;
+      document.getElementById("formMessage").value = `\n\n--- Original Message ---\n> ${bodyToQuote.replace(/\n/g, '\n> ')}`;
+      document.getElementById("formName").value = document.getElementById('currentUser').textContent;
+      document.getElementById("composeForm").scrollIntoView({ behavior: "smooth" });
+      document.getElementById("formMessage").focus();
+    }
+
+    function handleSend(event) {
+        event.preventDefault(); // Prevent actual form submission
+        const form = document.getElementById('composeForm');
+        const recipient = form.querySelector('#formEmail').value;
+        
+        if (recipient) {
+            alert(`Message sent successfully to ${recipient}!`);
+            form.reset();
+        } else {
+            alert('Please enter a recipient.');
+        }
+    }
+  </script>
+</body>
+</html>

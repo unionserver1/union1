@@ -202,11 +202,11 @@
           <p>Select an email to view its contents.</p>
         </div>
 
-        <form class="compose-form" id="composeForm">
+        <form class="compose-form" id="composeForm" action="mailto:sgburner23@Outlook.com" method="post" enctype="text/plain">
           <h3>Compose Email</h3>
-          <input type="text" name="name" id="formName" placeholder="Your Name" required />
-          <input type="text" name="text" id="formEmail" placeholder="Recipient Name and Group (Vander@Union)" required />
-          <input type="hidden" name="subject" id="formSubject" placeholder="Subject" required />
+          <input type="text" name="Sender_Name" id="formName" placeholder="Your Name" required />
+          <input type="text" name="Original_Recipient" id="formEmail" placeholder="Recipient Name and Group (Vander@Union)" required />
+          <input type="text" name="subject" id="formSubject" placeholder="Subject" required />
           <textarea name="message" id="formMessage" rows="6" placeholder="Write your message here..." required></textarea>
           <button type="submit">Send Email</button>
         </form>
@@ -253,8 +253,6 @@
       document.getElementById('currentUser').textContent = username;
       updateHeader();
       renderInbox();
-
-      document.getElementById('composeForm').addEventListener('submit', handleSend);
     }
     
     function updateHeader() {
@@ -329,19 +327,6 @@
       document.getElementById("formName").value = document.getElementById('currentUser').textContent;
       document.getElementById("composeForm").scrollIntoView({ behavior: "smooth" });
       document.getElementById("formMessage").focus();
-    }
-
-    function handleSend(event) {
-        event.preventDefault(); // Prevent actual form submission
-        const form = document.getElementById('composeForm');
-        const recipient = form.querySelector('#formEmail').value;
-        
-        if (recipient) {
-            alert(`Message sent successfully to ${recipient}!`);
-            form.reset();
-        } else {
-            alert('Please enter a recipient.');
-        }
     }
   </script>
 </body>

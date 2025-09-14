@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VMC Secure Messenger</title>
+    <title>VMC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -447,7 +447,8 @@
                 bonds: 2,
                 emails: [
                     { id: 1, from: "Suon@Facte", subject: "Welcome", body: "Welcome to the SGR." },
-                    { id: 2, from: "AdsGovernment@Facte", subject: "Daily Ad by Union", body: "Upgrade and pay 3 bonds a week for no ad mail. Hello People, just like to remind you all that Facte has a lottery open to every one this week. Pay up to 1000 bonds to earn up to 10 times more!" },
+                    { id: 2, from: "Lotto@Facte", subject: "Daily Ad by Union", body: "Upgrade and pay 3 bonds a week for no ad mail. Hello People, just like to remind you all that Facte has a lottery open to every one this week. Pay up to 1000 bonds to earn up to 10 times more!" },
+                    { id: 3, from: "BettingCo@Facte", subject: "Daily Ad by Union", body: "Message BettingCo@Facte '815' and earn 10 bonds to bet on this weeks event for free!" },
                 ],
             },
             "Vander": {
@@ -637,9 +638,6 @@
                 form.reset();
                 form.classList.add('hidden');
                 
-            } else {
-                alert(`Error: User "${recipientName}" not found in the system.`);
-                e.preventDefault();
             }
         });
     </script>

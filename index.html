@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VMC</title>
+    <title>VMC Secure Messenger</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -414,17 +414,7 @@
                         from: "AdsGovernment@Facte",
                         subject: "Daily Ad by Union",
                         body: "Upgrade and pay 3 bonds a week for no ad mail. Hello People, just like to remind you all that Facte has a lottery open to every one this week. Pay up to 1000 bonds to earn up to 10 times more!",
-                    },
-                    {
-                        id: 3,
-                        from: "Vander@Union",
-                        subject: "Encrypted Message",
-                        body: "e8a1d5a7f2a1e6b8c4a9d7b2c5... [Encrypted]",
-                        encrypted: true,
-                        isDecrypted: false,
-                        decryptedBody: "The package is secure. Meet at the usual place at dusk. We've been cleared for the next phase. Bring the bonds.",
-                        bondReward: 100,
-                    },
+                    }
                 ],
             },
             "Vander": {
@@ -533,41 +523,15 @@
             });
 
             const emailDetails = document.getElementById("emailDetails");
-            let actionButtons = '';
-            let emailBody = email.body;
-
-            if (email.encrypted) {
-                if (email.isDecrypted) {
-                    emailBody = email.decryptedBody;
-                } else {
-                    emailBody = email.body;
-                    actionButtons += `<button class="action-btn" onclick="decryptEmail(${email.id})">Decrypt Message</button>`;
-                }
-            }
             
-            actionButtons += `<button class="action-btn" onclick="replyToEmail(${email.id})" style="margin-left: 10px;">Reply</button>`;
-
             emailDetails.innerHTML = `
                 <h3>${email.subject}</h3>
                 <p class="from"><strong>From:</strong> ${email.from}</p>
-                <pre>${emailBody}</pre>
-                <div>${actionButtons}</div>
+                <pre>${email.body}</pre>
+                <button class="action-btn" onclick="replyToEmail(${email.id})">Reply</button>
             `;
         }
-
-        function decryptEmail(emailId) {
-            const email = currentUserData.emails.find(e => e.id === emailId);
-            if (!email || !email.encrypted || email.isDecrypted) return;
-
-            email.isDecrypted = true;
-            if (email.bondReward) {
-                currentUserData.bonds += email.bondReward;
-            }
-
-            updateHeader();
-            showEmail(emailId); // Re-render the email view
-        }
-
+        
         function showComposeForm() {
             const composeForm = document.getElementById("composeForm");
             composeForm.classList.remove('hidden');
@@ -579,11 +543,9 @@
             const email = currentUserData.emails.find(e => e.id === emailId);
             if (!email) return;
 
-            const bodyToQuote = email.isDecrypted ? email.decryptedBody : email.body;
-            
             document.getElementById("formRecipient").value = email.from;
             document.getElementById("formSubject").value = "Re: " + email.subject;
-            document.getElementById("formMessage").value = `\n\n--- Original Message ---\n> ${bodyToQuote.replace(/\n/g, '\n> ')}`;
+            document.getElementById("formMessage").value = `\n\n--- Original Message ---\n> ${email.body.replace(/\n/g, '\n> ')}`;
             document.getElementById("formName").value = loggedInUsername;
 
             showComposeForm();

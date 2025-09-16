@@ -19,6 +19,7 @@
             --color-success: #10b981;
             --color-error: #ef4444;
             --color-border: #444;
+            --color-ad: #eab308; /* Added yellow color for AD */
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -165,7 +166,7 @@
             border-radius: 8px;
             margin-bottom: 0.75rem;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, opacity 0.2s;
         }
         
         .email-list__item:hover {
@@ -176,11 +177,37 @@
             outline: 2px solid var(--color-accent);
             background-color: #383838;
         }
+
+        .email-list__item--read {
+            opacity: 0.7;
+        }
+
+        .email-list__item--read:hover {
+            opacity: 1;
+        }
+
+        .email-list__item--read .email-list__subject {
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
         
         .email-list__subject {
             font-weight: 600;
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             margin-bottom: 0.25rem;
+            transition: color 0.2s;
+        }
+
+        .email-list__item:not(.email-list__item--read) .email-list__subject::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+            flex-shrink: 0;
         }
         
         .email-list__from {
@@ -385,6 +412,11 @@
         .compose-btn:hover {
             transform: scale(1.1);
         }
+
+        .ad-text {
+            color: var(--color-ad);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -401,10 +433,11 @@
 
     <div class="app-container hidden" id="app">
         <header class="app-header">
-            <div class="app-header__logo">VMC</div><span>[AD] Lotto Jackpot: <strong>240</strong><p>Message: LottoCo@Facte</p></span>
-            <div class="app-header__info">
-                                
+            <div class="app-header__logo">VMC</div>
+            <span><span class="ad-text">[AD]</span> Lotto Jackpot: <strong>240</strong><p>Message: LottoCo@Facte</p></span>
+                        <span>Free Premium Feature! <p> Enjoy New Mail Indicator for <strong>7 days</strong></p></span>
 
+            <div class="app-header__info">
                 <span>Bonds: <strong id="bondCount">0</strong></span>
                 <span>User: <strong id="currentUser"></strong></span>
                 <button class="app-header__logout-btn" onclick="handleLogout()">Logout</button>
@@ -448,15 +481,15 @@
                 password: "Sm9hbmE=",
                 bonds: 52,
                 emails: [
-                    { id: 3, from: "BettingCo@Facte", subject: "Daily Ad by Union", body: "Message BettingCo@Facte '815' and earn 10 bonds to bet on this weeks event for free!" },
                     { id: 4, from: "Wind@SGR", subject: "Job Offer", body: "Hey Joan, since you are new here and I got a few Bonds I'd pay you to convince people to join the SGR. I'd give you 10 message addresses of potental recruits and I'd pay 3 bonds per recruit. Giving you a chance to prove your worth." },
                     { id: 5, from: "Wind@SGR", subject: "Job Offer Reply", body: "Great, here are the first 4: David@Caps Sticky@CM Sideways@Caps King@Union" },
                     { id: 6, from: "Sideways@Caps", subject: "Rejection", body: "I am not looking to join the SGR but I would pay 30 Bonds for all the details on the newest member of your group." },
                     { id: 7, from: "King@Union", subject: "prove it idiot", body: "I would join if you proved to me you all are not just a roleplay cult, trust me you can not because you are one." },
                     { id: 8, from: "Wind@SGR", subject: "Done?", body: "Wdym done?" },
                     { id: 9, from: "Sticky@CM", subject: "What?", body: "What?" },
-                    { id: 11, from: "VMC@Union", subject: "Upgrade Plan", body: "No Ads! Only 3 Bonds a Month! Reply to pay." },
                     { id: 10, from: "Wind@SGR", subject: "Hello?", body: "Are you ghosting me?" },
+                    { id: 11, from: "VMC@Union", subject: "Upgrade Plan", body: "No Ads! Only 3 Bonds a Month! Reply to pay." },
+                    { id: 11, from: "Sticky@CM", subject: "Huhhhhh", body: "Sorry I am new here so idk who you are?" },
                 ],
             },
             "Vander": {
@@ -476,6 +509,16 @@
         const composeForm = document.getElementById('composeForm');
         const emailDetails = document.getElementById('emailDetails');
 
+        // --- Read Status Helpers ---
+        function getReadStatus() {
+            const status = localStorage.getItem('vmcReadStatus');
+            return status ? JSON.parse(status) : {};
+        }
+
+        function saveReadStatus(status) {
+            localStorage.setItem('vmcReadStatus', JSON.stringify(status));
+        }
+
         // --- Core App & Session Logic ---
         document.addEventListener('DOMContentLoaded', () => {
             checkLoginStatus();
@@ -492,6 +535,21 @@
             if (savedUser && users[savedUser]) {
                 loggedInUsername = savedUser;
                 currentUserData = users[savedUser];
+                
+                // Load read status and initialize IDs 1-11 as read
+                const readStatus = getReadStatus();
+                const userStatus = readStatus[loggedInUsername] || {};
+                currentUserData.readIds = new Set(userStatus.readIds || []);
+                
+                // Mark emails 1-11 as read
+                for (let i = 1; i <= 11; i++) {
+                    currentUserData.readIds.add(i);
+                }
+                
+                // Save updated read status
+                readStatus[loggedInUsername] = { readIds: Array.from(currentUserData.readIds) };
+                saveReadStatus(readStatus);
+
                 loadApp(savedUser);
             } else {
                 document.getElementById('loginScreen').classList.remove('hidden');
@@ -508,6 +566,21 @@
                 loggedInUsername = username;
                 currentUserData = users[username];
                 localStorage.setItem('loggedInVMCUser', username);
+                
+                // Load read status and initialize IDs 1-11 as read
+                const readStatus = getReadStatus();
+                const userStatus = readStatus[loggedInUsername] || {};
+                currentUserData.readIds = new Set(userStatus.readIds || []);
+                
+                // Mark emails 1-11 as read
+                for (let i = 1; i <= 11; i++) {
+                    currentUserData.readIds.add(i);
+                }
+                
+                // Save updated read status
+                readStatus[loggedInUsername] = { readIds: Array.from(currentUserData.readIds) };
+                saveReadStatus(readStatus);
+
                 errorDiv.textContent = '';
                 loadApp(username);
             } else {
@@ -546,6 +619,12 @@
                 const li = document.createElement("li");
                 li.className = "email-list__item";
                 li.dataset.emailId = email.id;
+
+                // Add 'read' class if its ID is in the user's readIds set
+                if (currentUserData.readIds.has(email.id)) {
+                    li.classList.add('email-list__item--read');
+                }
+
                 li.innerHTML = `
                     <span class="email-list__subject">${email.subject}</span>
                     <span class="email-list__from">From: ${email.from}</span>
@@ -558,6 +637,24 @@
         function showEmail(emailId) {
             const email = currentUserData.emails.find(e => e.id === emailId);
             if (!email) return;
+
+            // Check if the email has not been read yet
+            if (!currentUserData.readIds.has(emailId)) {
+                // Add the ID to the set of read emails
+                currentUserData.readIds.add(emailId);
+
+                // Prepare and save the updated status to localStorage
+                const readStatus = getReadStatus();
+                if (!readStatus[loggedInUsername]) {
+                    readStatus[loggedInUsername] = {};
+                }
+                // Convert Set to Array for JSON serialization
+                readStatus[loggedInUsername].readIds = Array.from(currentUserData.readIds);
+                saveReadStatus(readStatus);
+                
+                // Re-render inbox to show updated read/unread status
+                renderInbox();
+            }
 
             document.querySelectorAll('.email-list__item').forEach(el => {
                 el.classList.toggle('email-list__item--active', el.dataset.emailId == emailId);

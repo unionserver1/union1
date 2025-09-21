@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VMC</title>
+    <title>Union Service Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -19,7 +19,7 @@
             --color-success: #10b981;
             --color-error: #ef4444;
             --color-border: #444;
-            --color-ad: #eab308; /* Added yellow color for AD */
+            --color-ad: #eab308; /* Yellow color for AD */
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -169,7 +169,7 @@
             transition: background-color 0.2s, opacity 0.2s;
         }
         
-        .email-list__item:hover {x
+        .email-list__item:hover {
             background-color: #383838;
         }
         
@@ -412,10 +412,159 @@
         .compose-btn:hover {
             transform: scale(1.1);
         }
+        
+        .inbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
 
-        .ad-text {
+        .subscribe-btn {
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .subscribe-btn:hover {
+            background-color: var(--color-accent-hover);
+        }
+        
+        .tiers-page {
+            background-color: var(--color-bg-secondary);
+        }
+        
+        .tiers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+        }
+        
+        .tiers-header h3 {
+            font-size: 1.25rem;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            font-size: 1.75rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .tiers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .tier-card {
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tier-card--pro {
+            border-color: var(--color-ad);
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+        }
+
+        .tier-card h4 {
+            font-size: 1.1rem;
+            color: var(--color-text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tier-card .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .tier-card .price .period {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+        }
+        
+        .tier-card ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .tier-card ul li {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+        
+        .tier-card ul li::before {
+            content: '✓';
+            color: var(--color-success);
+            position: absolute;
+            left: 0;
+        }
+        
+        .tier-select-btn {
+            background-color: var(--color-accent);
+            color: white;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .tier-select-btn:hover {
+            background-color: var(--color-accent-hover);
+        }
+.ad-text {
             color: var(--color-ad);
             font-weight: 600;
+        }
+        
+        .ad-slot {
+            background-color: var(--color-bg-card);
+            border: 1px dashed var(--color-ad);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .ad-slot:hover {
+            background-color: #3a3a3a;
+        }
+
+        .ad-slot p {
+            font-weight: 700;
+            color: var(--color-ad);
+            margin-bottom: 0.25rem;
+        }
+
+        .ad-slot span {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
         }
     </style>
 </head>
@@ -423,7 +572,7 @@
 
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
-            <h1 class="login-box__title">VMC Login</h1>
+            <h1 class="login-box__title">Union Service Hub Login</h1>
             <div class="login-box__error" id="loginError"></div>
             <input class="login-box__input" type="text" id="username" placeholder="Username" />
             <input class="login-box__input" type="password" id="password" placeholder="Password" />
@@ -433,11 +582,8 @@
 
     <div class="app-container hidden" id="app">
         <header class="app-header">
-            <div class="app-header__logo">VMC</div>
+            <div class="app-header__logo">USH</div>
             
-            
-                        <span>Jackpot! 2k Bonds. Winner on September 30th.</span>
-
             <div class="app-header__info">
                 <span>Bonds: <strong id="bondCount">0</strong></span>
                 <span>User: <strong id="currentUser"></strong></span>
@@ -446,7 +592,50 @@
         </header>
         <main class="app-main">
             <div class="inbox-panel" id="inboxPanel">
-                <h2>Inbox</h2>
+                <div class="inbox-header" id="inbox-header">
+                    <h2 >Inbox</h2>
+                    <button class="subscribe-btn"  onclick="showTiersPage()">Upgrade Now</button>
+                </div>   
+                  <div id="adContainer">
+                    <div class="ad-slot" onclick="fillAdEmail('Lotto@Facte', 'Play Today')">
+                        <p><strong>Want to Win 2,000 Bonds?</strong></p>
+                        <span>Pay 20 Bonds for a chance to win 2,000!</span>
+                    </div>
+                </div>
+                
+                <div class="tiers-page hidden" id="tiersPage">
+                    <div class="tiers-header">
+                        <h3>USH Tiers</h3>
+                        <button class="close-btn" onclick="hideTiersPage()">×</button>
+                    </div>
+                    <div class="tiers-grid">
+                        <div class="tier-card">
+                            <h4>Free</h4>
+                            <p class="price">0 Bonds <span class="period">Ad Supported</span></p>
+                            <ul>
+                                <li>8 Emails</li>
+                            </ul>
+                        </div>
+                        <div class="tier-card">
+                            <h4>Ad Free</h4>
+                            <p class="price">30 Bonds <span class="period">/ month</span></p>
+                            <button class="tier-select-btn" onclick="fillAdEmail('Sales@Union', 'Inquiry: Ad Free Tier')">Select</button>
+                        </div>
+                        <div class="tier-card tier-card--pro">
+                            <h4>Pro</h4>
+                            <p class="price">100 Bonds <span class="period">/ month</span></p>
+                            <ul>
+                                <li>Unlimited Emails</li>
+                                <li>Custom Themes</li>
+                                <li>No Ads</li>
+                                <li>Early Access to New Tools</li>
+                                <li>And so much more</li>
+                            </ul>
+                            <button class="tier-select-btn" onclick="fillAdEmail('Sales@Union', 'Inquiry: Pro Tier')">Select</button>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="email-list" id="inboxList"></ul>
             </div>
             <div class="email-panel" id="emailPanel">
@@ -472,7 +661,7 @@
         </main>
 
         <div class="compose-btn-container">
-            <button class="compose-btn" onclick="showComposeForm()">+</button>
+            <button class="compose-btn" id="emailButton" onclick="showComposeForm()">+</button>
         </div>
     </div>
 
@@ -490,8 +679,8 @@
                     { id: 24, from: "Suon@SGR", subject: "WE CAN WIN, My last E-Mail as leader", body: "Joan sent me 150 files that prove the SG and Spade were real. We can end it! On another note, I am not running for re-election and support Joan to become the next leader of the SGR. I will continue serving the SGR, I am stepping down because I do not believe I am fit to serve in this new period as we push forward." },
                     { id: 25, from: "Wind@SGR", subject: "Good Luck", body: "Good Luck on the Election, you will need since you'll be going up against me." },
                     { id: 26, from: "Faculte@SGR", subject: "Resignation", body: "Hello Members of the SGR, your leader Suon has left the SGR. The offical will remain empty until the election and appointing of the new leader. No details were given." },
-                    { id: 27, from: "Faculte@SGR", subject: "Election", body: "The 3rd Leadership Election of the Southern Group Revitalize Movement is open. The official candidates are Joan Of Arc (Joan\@SGR) and Wind (Wind\@SGR). Vote by replying with the email of any group member. Voting closes at 6:30 PM EDT on 09/21/25. Candidates may send 3 messages through official channels only, unofficial messaging results in disqualification." },
-
+                    { id: 27, from: "Faculte@SGR", subject: "Election", body: "The 3rd Leadership Election of the Southern Group Revitalize Movement is open. The official candidates are Joan Of Arc (Joan@SGR) and Wind (Wind@SGR). Vote by replying with the email of any group member. Voting closes at 6:30 PM EDT on 09/21/25. Candidates may send 3 messages through official channels only, unofficial messaging results in disqualification." },
+                    { id: 28, from: "USH@Union", subject: "Changes to VMC", body: "Hello VMC Users, Union Co. has rebranded as USH or Union Service Hub to better reflex our growing services." },
                 ],
             },
             "Vander": {
@@ -537,17 +726,10 @@
                 loggedInUsername = savedUser;
                 currentUserData = users[savedUser];
                 
-                // Load read status and initialize IDs 1-11 as read
                 const readStatus = getReadStatus();
                 const userStatus = readStatus[loggedInUsername] || {};
                 currentUserData.readIds = new Set(userStatus.readIds || []);
                 
-                // Mark emails 1-11 as read
-                for (let i = 1; i <= 11; i++) {
-                    currentUserData.readIds.add(i);
-                }
-                
-                // Save updated read status
                 readStatus[loggedInUsername] = { readIds: Array.from(currentUserData.readIds) };
                 saveReadStatus(readStatus);
 
@@ -568,17 +750,10 @@
                 currentUserData = users[username];
                 localStorage.setItem('loggedInVMCUser', username);
                 
-                // Load read status and initialize IDs 1-11 as read
                 const readStatus = getReadStatus();
                 const userStatus = readStatus[loggedInUsername] || {};
                 currentUserData.readIds = new Set(userStatus.readIds || []);
                 
-                // Mark emails 1-11 as read
-                for (let i = 1; i <= 11; i++) {
-                    currentUserData.readIds.add(i);
-                }
-                
-                // Save updated read status
                 readStatus[loggedInUsername] = { readIds: Array.from(currentUserData.readIds) };
                 saveReadStatus(readStatus);
 
@@ -608,7 +783,9 @@
         }
 
         function updateHeader() {
-            document.getElementById('bondCount').textContent = currentUserData.bonds;
+            const bonds = currentUserData.bonds;
+            const cmds = Math.floor(bonds / 1.7);
+            document.getElementById('bondCount').textContent = bonds;
         }
 
         // --- Email Rendering & Interaction ---
@@ -616,12 +793,13 @@
             const inboxList = document.getElementById("inboxList");
             inboxList.innerHTML = "";
 
-            currentUserData.emails.sort((a, b) => b.id - a.id).forEach(email => {
+            const recentEmails = currentUserData.emails.sort((a, b) => b.id - a.id).slice(0, 8);
+
+            recentEmails.forEach(email => {
                 const li = document.createElement("li");
                 li.className = "email-list__item";
                 li.dataset.emailId = email.id;
 
-                // Add 'read' class if its ID is in the user's readIds set
                 if (currentUserData.readIds.has(email.id)) {
                     li.classList.add('email-list__item--read');
                 }
@@ -636,24 +814,18 @@
         }
 
         function showEmail(emailId) {
+            hideTiersPage();
             const email = currentUserData.emails.find(e => e.id === emailId);
             if (!email) return;
 
-            // Check if the email has not been read yet
             if (!currentUserData.readIds.has(emailId)) {
-                // Add the ID to the set of read emails
                 currentUserData.readIds.add(emailId);
-
-                // Prepare and save the updated status to localStorage
                 const readStatus = getReadStatus();
                 if (!readStatus[loggedInUsername]) {
                     readStatus[loggedInUsername] = {};
                 }
-                // Convert Set to Array for JSON serialization
                 readStatus[loggedInUsername].readIds = Array.from(currentUserData.readIds);
                 saveReadStatus(readStatus);
-                
-                // Re-render inbox to show updated read/unread status
                 renderInbox();
             }
 
@@ -674,7 +846,6 @@
                 <button class="email-details__reply-btn" onclick="replyToEmail(${email.id})">Reply</button>
             `;
 
-            // Mobile view handling
             if (window.innerWidth <= 768) {
                 inboxPanel.classList.add('hidden-mobile');
                 emailPanel.classList.add('active-mobile');
@@ -687,13 +858,12 @@
         }
 
         function showComposeForm() {
+            hideTiersPage();
             emailDetails.classList.add('hidden');
             composeForm.classList.remove('hidden');
             
-            // Auto-fill and hide sender name field
             document.getElementById("formName").value = loggedInUsername;
             
-            // Mobile view handling
             if (window.innerWidth <= 768) {
                 inboxPanel.classList.add('hidden-mobile');
                 emailPanel.classList.add('active-mobile');
@@ -713,7 +883,30 @@
             showComposeForm();
         }
 
-        // --- Handle Form Submission (Internal) ---
+        function fillAdEmail(recipient, subject) {
+            hideTiersPage();
+            showComposeForm();
+            document.getElementById("formRecipient").value = recipient;
+            document.getElementById("formSubject").value = subject;
+            document.getElementById("formMessage").focus();
+        }
+
+        function showTiersPage() {
+                      document.getElementById('adContainer').classList.add('hidden');
+
+            document.getElementById('inbox-header').classList.add('hidden');
+            document.getElementById('inboxList').classList.add('hidden');
+            document.getElementById('tiersPage').classList.remove('hidden');
+        }
+
+        function hideTiersPage() {
+                                document.getElementById('adContainer').classList.remove('hidden');
+
+            document.getElementById('inbox-header').classList.remove('hidden');
+            document.getElementById('inboxList').classList.remove('hidden');
+            document.getElementById('tiersPage').classList.add('hidden');
+        }
+
         const form = document.getElementById('composeForm');
         form.addEventListener("submit", (e) => {
             const senderName = document.getElementById('formName').value;
@@ -731,8 +924,9 @@
             
             if (users[recipientName]) {
                 const recipient = users[recipientName];
+                const newEmailId = Math.max(...Object.values(users).flatMap(u => u.emails).map(e => e.id), 0) + 1;
                 const newEmail = {
-                    id: recipient.emails.length + 1,
+                    id: newEmailId,
                     from: `${senderName}@${currentUserData.group || 'Facte'}`,
                     subject: subject,
                     body: message,

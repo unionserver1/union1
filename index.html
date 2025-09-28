@@ -257,6 +257,18 @@
             word-wrap: break-word;
             font-size: 1rem;
         }
+
+        .email-details__body h1,
+        .email-details__body h2,
+        .email-details__body h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .email-details__body strong {
+            color: var(--color-text-primary);
+        }
         
         .email-details__reply-btn {
             background-color: var(--color-accent);
@@ -623,7 +635,7 @@
                         </div>
                         <div class="tier-card tier-card--pro">
                             <h4>Pro</h4>
-                            <p class="price"><s>100</s> 70 Bonds <span class="period">/ month</span></p>
+                            <p class="price">100 Bonds <span class="period">/ month</span></p>
                             <ul>
                                 <li>Unlimited Emails</li>
                                 <li>Custom Themes</li>
@@ -680,17 +692,6 @@
                     { id: 25, from: "Wind@SGR", subject: "Good Luck", body: "Good Luck on the Election, you will need since you'll be going up against me." },
                     { id: 26, from: "Faculte@SGR", subject: "Resignation", body: "Hello Members of the SGR, your leader Suon has left the SGR. The offical will remain empty until the election and appointing of the new leader. No details were given." },
                     { id: 27, from: "Faculte@SGR", subject: "Election", body: "The 3rd Leadership Election of the Southern Group Revitalize Movement is open. The official candidates are Joan Of Arc (Joan@SGR) and Wind (Wind@SGR). Vote by replying with the email of any group member. Voting closes at 5:30 PM EDT on 09/21/25. Candidates may send 3 messages through official channels only, unofficial messaging results in disqualification." },
-                    { id: 28, from: "USH@Union", subject: "Changes to VMC", body: "We’re excited to share that Union Co. has officially rebranded as USH – Union Service Hub! This change reflects our expanding range of services and our commitment to serving you better." },
-                    { id: 29, from: "Bone@SGR", subject: "Who tf r u", body: "Who tf r u" },
-                    { id: 30, from: "Wind@SGR", subject: "Deal", body: "Let's make a deal that who ever wins, the other person becomes vise leader." },
-                    { id: 31, from: "Faculte@SGR", subject: "Election Results", body: "Election Results are, Capitalism and Ecomonic Group: Rockefeller@Caps, Factory Group: Gabe@Facte, Computer Science Progress and Innovation Group: Starry@CSP, Code Monkey Group: Commander@CM, Faculte Socialist Group: Napoli@Coms, Movers Group: ET@Move, Southern Group Revitalize Movement: Joan@SGR, Faculte Social Organization Group: Rome@Socs" },
-                    { id: 32, from: "Wind@SGR", subject: "Congrats", body: "GG I hope we serve well together" },
-                    { id: 34, from: "Wind@SGR", subject: "Gameplan", body: "For our first move before doing anything should be make clear to the Faculte you are on our side or Rockefeller's Side. Include a part talking about how you are shaping up for the end game against him. Probably should do this during your opening speech on the first." },
-                    { id: 35, from: "Wind@SGR", subject: "Updates", body: "Responding to you previous message, no it is just a email message. Also, the new leader of the Coms has said he plans for his group to release a terminal of their own to go against USH and Caps Terminal. I'll continue updating you." },
-                    { id: 36, from: "Wind@SGR", subject: "Haha", body: "I was Suon's Infomation Person, I have a few contacts. One in CSP and One in CM. The 3 of us share infomation on stuff." },
-                    { id: 37, from: "Napoli@Coms", subject: "Proposal for a Strategic Pact", body: "Dear Joan, as the incoming President of the Faculte Socialist Group, I extend a proposal for a strategic pact between my group and the Southern Group Revitalize Movement to jointly counter the influence of Rockefeller and the broader Capitalism and Economic Group. This pact would be founded on two primary clauses: first, a mutual commitment to actively reduce and limit the use of products and services aligned with the Capitalism and Economic Group; second, a shared pledge to hold a new bill, pegged to the current exchange rate of the Bond. I invite you to review this proposal and suggest any amendments or additions necessary to advance our shared goals. - Incoming President Napoli of the Faculte Socialist Group" },
-                    { id: 38, from: "Wind@SGR", subject: "HAVE YOU GONE FUCKING CRAZY", body: "WHAT DO YOU MEAN ALLY WITH ROCKEFELLER, THE MAN HAS NO REASON. IF YOU ALLY WITH HIM HE WILL DESTORY US." },
-                    { id: 39, from: "Wind@SGR", subject: "As Your Vice Leader", body: "As Your Vice Leader, I will stand by you. If you see a path with the Coms and think it is the best. If you think going without them and by ourselves is the best, take it. I think the Coms need you a partner as much as you need one. It can go well if you do not let them use us and make sure to get an equal amount from the deal. Before you agree to anything you might want to think about if you are getting a good deal from this." },
                     { id: 40, from: "Napoli@Coms", subject: "Thank You", body: "I am willing to take ecomonic commitment over minting. Yet, I will take it 500 plus inflation with a max of 750." },
                     { id: 41, from: "Wind@SGR", subject: "Up too?", body: "If we can earn up too 750, we can just earn 0. Do you mean at least?" },
                     { id: 42, from: "Bone@SGR", subject: "What's Up", body: "I know I am not active much but I would like to get to know you and help you. Wind told me that you have some big things coming up and I want to be a part." },
@@ -702,6 +703,7 @@
                     { id: 48, from: "Faculte@SGR", subject: "3rd Committee", body: "The Third Committee starts tomorrow, may all new members please submit your speeches to be sent out in the openning message." },
                     { id: 49, from: "Wind@SGR", subject: "How to", body: "make the subject '3rd Committee' and message the speech" },
                     { id: 50, from: "Wind@SGR", subject: "Huh", body: "send it to Faculte@SGR " },
+                    { id: 51, from: "Faculte@SGR", subject: "3rd Committee", body: "$$ The Third Committee $$  $$ The Third Committee's clerks for this month are from the Computer Science Progress and Innovation Group (CSP) and the Code Monkey Group (CM). $$  $$  $$  $$ New Member Opening Speeches $$  $$ Three of the four new members have submitted opening speeches: $$  $$  $$ From the Leader of the Southern Group Revitalize Movement, Joan Of Arc: $$  $$ Dear SGR and the greater Faculte, I am Joan of Arc, leader of the SGR. In the past, you may have seen us as strange, weird, or maybe like a cult of sorts. I can assure you we're not and are simply here to do our job, just as you all do yours. I am critically aware of Rockefeller's recent actions, along with the CAPS attempting to find and remove our newest member. I do not like Rockefeller; he seems power-hungry and a threat to the Faculte as a whole. Frankly, I think he needs to be stopped, but that is not my call to make. The SGR has made a pact with the COMS to go against Rockefeller. I hope to work with all groups in an effort to sustain the Faculte and help the groups within it flourish. Thank you, that is all. $$  $$  $$ From the President of the Faculte Socialist Group, Napoli: $$  $$ Hello Committee, we face a grave danger. Rockefeller controls more than half of all Bonds, he controls the largest company, as well as one of the largest groups. The time has come for a forceful pushback against his growing influence. We, the Faculte Socialist Group, have signed agreements with both the SGR and the Socs. We will continue to build a force that opposes Rockefeller; the time has come for this. On another note, the Coms have released a terminal to go against the Duopoly of USH and the Caps Terminal. If any group leaders wish to switch to our Community Terminal, I would give you a great deal on it.  $$  $$  $$ From the President of the Faculte Social Organization Group, Rome: $$  $$ As the newest and smallest group, we plan to show ourselves as a real force in the Faculte. $$  $$  $$  $$ Committee Membership Roster $$  $$  $$ Capitalism and Ecomonic Group: Rockefeller@Caps $$ Factory Group: Gabe@Facte $$ Computer Science Progress and Innovation Group: Starry@CSP $$ Code Monkey Group: Commander@CM $$ Faculte Socialist Group: Napoli@Coms $$ Movers Group: ET@Move $$ Southern Group Revitalize Movement: Joan@SGR $$ Faculte Social Organization Group: Rome@Socs $$  $$  $$  $$ Committee Action Format $$  $$ The Committee utilizes an automated process and manual review system for actions. All communications should be sent to the general address: Faculte@YOURGROUP. $$  $$ The required email subject line format is: [Action];[ID] $$  $$ Examples: $$  $$ To vote on Motion #15: $$ Subject: [Vote];[15] $$ Message Body: Write your vote (e.g., 'Yes,' 'No,' or 'Abstain'). $$  $$ To submit a Motion: $$ Subject: [Submit];[Motion] $$ Message Body: Write your proposed motion in full." },
 
                 ],
             },
@@ -810,6 +812,29 @@
             document.getElementById('bondCount').textContent = bonds;
         }
 
+        function parseSimpleMarkdown(text) {
+            // NOTE: This is a very basic parser for demonstration.
+            // It does not handle nested styles or complex cases.
+            let html = text
+                // Escape HTML to prevent accidental tag interpretation
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Headings (must be at the start of a line)
+            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+            // Bold (**text**)
+            html = html.replace(/\$\$/g, '<br>');
+
+            // Italic (*text*)
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+            return html;
+        }
+
         // --- Email Rendering & Interaction ---
         function renderInbox() {
             const inboxList = document.getElementById("inboxList");
@@ -858,13 +883,15 @@
             composeForm.classList.add('hidden');
             emailDetails.classList.remove('hidden');
 
+            const formattedBody = parseSimpleMarkdown(email.body);
+
             emailDetails.innerHTML = `
                 <div class="email-details__header">
                     <button class="email-details__back-btn" onclick="hideEmailDetails()">&lt;</button>
                     <h3 class="email-details__subject">${email.subject}</h3>
                 </div>
                 <p class="email-details__from">From: ${email.from}</p>
-                <pre class="email-details__body">${email.body}</pre>
+                <div class="email-details__body">${formattedBody}</div>
                 <button class="email-details__reply-btn" onclick="replyToEmail(${email.id})">Reply</button>
             `;
 

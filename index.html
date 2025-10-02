@@ -7,579 +7,582 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --color-bg-primary: #121212;
-            --color-bg-secondary: #1f1f1f;
-            --color-bg-card: #2c2c2c;
-            --color-text-primary: #e0e0e0;
-            --color-text-secondary: #a0a0a0;
-            --color-accent: #3b82f6;
-            --color-accent-hover: #2563eb;
-            --color-success: #10b981;
-            --color-error: #ef4444;
-            --color-border: #444;
-            --color-ad: #eab308; /* Yellow color for AD */
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+<style>/* --- contents of the original <style> block --- */
+:root {
+    --color-bg-primary: #121212;
+    --color-bg-secondary: #1f1f1f;
+    --color-bg-card: #2c2c2c;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-accent: #c80ccb;
+    --color-accent-hover: #6b036d;
+    --color-success: #10b9b9;
+    --color-error: #d0ef44;
+    --color-border: #444;
+    --color-ad: white; /* Yellow color for AD */
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg-primary);
-            color: var(--color-text-primary);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
-        .hidden {
-            display: none !important;
-        }
+.hidden {
+    display: none !important;
+}
 
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            background-color: var(--color-bg-secondary);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+.app-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: var(--color-bg-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
 
-        .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            background-color: var(--color-bg-card);
-            border-bottom: 1px solid var(--color-border);
-        }
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
+}
 
-        .app-header__logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-accent);
-        }
-        
-        .app-header__info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .app-header__info span {
-            font-size: 0.9rem;
-            color: var(--color-text-secondary);
-        }
+.app-header__logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+}
 
-        .app-header__info strong {
-            color: var(--color-text-primary);
-        }
+.app-header__info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  text-decoration: none;
+}
 
-        .app-header__logout-btn {
-            background: none;
-            border: none;
-            color: var(--color-accent);
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
+.app-header__info span {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+      text-decoration: none;
 
-        .app-header__logout-btn:hover {
-            text-decoration: underline;
-        }
+}
 
-        .app-main {
-            display: flex;
-            flex: 1;
-        }
-        
-        .inbox-panel {
-            flex-basis: 350px;
-            min-width: 300px;
-            background-color: var(--color-bg-secondary);
-            border-right: 1px solid var(--color-border);
-            padding: 1.5rem;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        .email-panel {
-            flex: 1;
-            padding: 1.5rem;
-            background-color: var(--color-bg-primary);
-            overflow-y: auto;
-        }
+.app-header__info strong {
+    color: var(--color-text-primary);
+      text-decoration: none;
 
-        @media (max-width: 768px) {
-            .app-container {
-                border-radius: 0;
-            }
-            .app-main {
-                flex-direction: column;
-                position: relative;
-                overflow: hidden;
-            }
-            .inbox-panel, .email-panel {
-                width: 100%;
-                min-width: auto;
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                transition: transform 0.3s ease-in-out;
-                border-right: none;
-            }
-            .inbox-panel {
-                transform: translateX(0);
-            }
-            .inbox-panel.hidden-mobile {
-                transform: translateX(-100%);
-            }
-            .email-panel {
-                transform: translateX(100%);
-            }
-            .email-panel.active-mobile {
-                transform: translateX(0);
-            }
-        }
-        
-        .email-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .email-list__item {
-            background-color: var(--color-bg-card);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
-            transition: background-color 0.2s, opacity 0.2s;
-        }
-        
-        .email-list__item:hover {
-            background-color: #383838;
-        }
-        
-        .email-list__item--active {
-            outline: 2px solid var(--color-accent);
-            background-color: #383838;
-        }
+}
 
-        .email-list__item--read {
-            opacity: 0.7;
-        }
+.app-header__logout-btn {
+    background: none;
+    border: none;
+    color: var(--color-accent);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
 
-        .email-list__item--read:hover {
-            opacity: 1;
-        }
+.app-header__logout-btn:hover {
+    text-decoration: underline;
+}
 
-        .email-list__item--read .email-list__subject {
-            font-weight: 500;
-            color: var(--color-text-secondary);
-        }
-        
-        .email-list__subject {
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.25rem;
-            transition: color 0.2s;
-        }
+.app-main {
+    display: flex;
+    flex: 1;
+}
 
-        .email-list__item:not(.email-list__item--read) .email-list__subject::before {
-            content: '';
-            display: block;
-            width: 10px;
-            height: 10px;
-            background-color: var(--color-accent);
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        
-        .email-list__from {
-            font-size: 0.8rem;
-            color: var(--color-text-secondary);
-        }
+.inbox-panel {
+    flex-basis: 350px;
+    min-width: 300px;
+    background-color: var(--color-bg-secondary);
+    border-right: 1px solid var(--color-border);
+    padding: 1.5rem;
+    overflow-y: auto;
+    position: relative;
+}
 
-        .email-details__header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
+.email-panel {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: var(--color-bg-primary);
+    overflow-y: auto;
+}
 
-        .email-details__back-btn {
-            background: none;
-            border: none;
-            color: var(--color-text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: none;
-        }
+@media (max-width: 768px) {
+    .app-container {
+        border-radius: 0;
+    }
+    .app-main {
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+    .inbox-panel, .email-panel {
+        width: 100%;
+        min-width: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transition: transform 0.3s ease-in-out;
+        border-right: none;
+    }
+    .inbox-panel {
+        transform: translateX(0);
+    }
+    .inbox-panel.hidden-mobile {
+        transform: translateX(-100%);
+    }
+    .email-panel {
+        transform: translateX(100%);
+    }
+    .email-panel.active-mobile {
+        transform: translateX(0);
+    }
+}
 
-        @media (max-width: 768px) {
-            .email-details__back-btn {
-                display: block;
-            }
-        }
+.email-list {
+    list-style: none;
+    padding: 0;
+}
 
-        .email-details__subject {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
+.email-list__item {
+    background-color: var(--color-bg-card);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
 
-        .email-details__from {
-            font-size: 0.9rem;
-            color: var(--color-text-secondary);
-            margin-bottom: 1.5rem;
-        }
+.email-list__item:hover {
+    background-color: #383838;
+}
 
-        .email-details__body {
-            background-color: var(--color-bg-card);
-            padding: 1.5rem;
-            border-radius: 8px;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 1rem;
-        }
+.email-list__item--active {
+    outline: 2px solid var(--color-accent);
+    background-color: #383838;
+}
 
-        .email-details__body h1,
-        .email-details__body h2,
-        .email-details__body h3 {
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
+.email-list__item--read {
+    opacity: 0.7;
+}
 
-        .email-details__body strong {
-            color: var(--color-text-primary);
-        }
-        
-        .email-details__reply-btn {
-            background-color: var(--color-accent);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: background-color 0.2s;
-        }
-        
-        .email-details__reply-btn:hover {
-            background-color: var(--color-accent-hover);
-        }
+.email-list__item--read:hover {
+    opacity: 1;
+}
 
-        .compose-form {
-            background-color: var(--color-bg-secondary);
-            padding: 1.5rem;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
+.email-list__item--read .email-list__subject {
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
 
-        .compose-form__title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+.email-list__subject {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+    transition: color 0.2s;
+}
 
-        .compose-form__input,
-        .compose-form__textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 8px;
-            border: 1px solid var(--color-border);
-            background-color: var(--color-bg-card);
-            color: var(--color-text-primary);
-            font-size: 1rem;
-        }
-        
-        .compose-form__input:focus,
-        .compose-form__textarea:focus {
-            outline: none;
-            border-color: var(--color-accent);
-        }
-        
-        .compose-form__btn {
-            background-color: var(--color-success);
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .compose-form__btn:hover {
-            background-color: #0b936a;
-        }
+.email-list__item:not(.email-list__item--read) .email-list__subject::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
 
-        .login-screen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--color-bg-primary);
-        }
-        
-        .login-box {
-            background-color: var(--color-bg-secondary);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow-md);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+.email-list__from {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
 
-        .login-box__title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-        
-        .login-box__error {
-            color: var(--color-error);
-            font-size: 0.8rem;
-            min-height: 1.5rem;
-        }
-        
-        .login-box__input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            background-color: var(--color-bg-card);
-            color: var(--color-text-primary);
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-        
-        .login-box__input:focus {
-            outline: none;
-            border-color: var(--color-accent);
-        }
-        
-        .login-box__btn {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--color-accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .login-box__btn:hover {
-            background-color: var(--color-accent-hover);
-        }
+.email-details__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
 
-        .compose-btn-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-        }
+.email-details__back-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
 
-        .compose-btn {
-            background-color: var(--color-accent);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease;
-        }
+@media (max-width: 768px) {
+    .email-details__back-btn {
+        display: block;
+    }
+}
 
-        .compose-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .inbox-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
+.email-details__subject {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 
-        .subscribe-btn {
-            background-color: var(--color-accent);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+.email-details__from {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+}
 
-        .subscribe-btn:hover {
-            background-color: var(--color-accent-hover);
-        }
-        
-        .tiers-page {
-            background-color: var(--color-bg-secondary);
-        }
-        
-        .tiers-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: var(--color-text-primary);
-        }
-        
-        .tiers-header h3 {
-            font-size: 1.25rem;
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--color-text-secondary);
-            font-size: 1.75rem;
-            cursor: pointer;
-            line-height: 1;
-        }
+.email-details__body {
+    background-color: var(--color-bg-card);
+    padding: 1.5rem;
+    border-radius: 8px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1rem;
+}
 
-        .tiers-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .tier-card {
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-        }
+.email-details__body h1,
+.email-details__body h2,
+.email-details__body h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
 
-        .tier-card--pro {
-            border-color: var(--color-ad);
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
-        }
+.email-details__body strong {
+    color: var(--color-text-primary);
+}
 
-        .tier-card h4 {
-            font-size: 1.1rem;
-            color: var(--color-text-primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .tier-card .price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-text-primary);
-            margin-bottom: 1rem;
-        }
+.email-details__reply-btn {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: background-color 0.2s;
+}
 
-        .tier-card .price .period {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--color-text-secondary);
-        }
-        
-        .tier-card ul {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-        
-        .tier-card ul li {
-            font-size: 0.9rem;
-            color: var(--color-text-secondary);
-            margin-bottom: 0.5rem;
-            padding-left: 1.25rem;
-            position: relative;
-        }
-        
-        .tier-card ul li::before {
-            content: '✓';
-            color: var(--color-success);
-            position: absolute;
-            left: 0;
-        }
-        
-        .tier-select-btn {
-            background-color: var(--color-accent);
-            color: white;
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .tier-select-btn:hover {
-            background-color: var(--color-accent-hover);
-        }
+.email-details__reply-btn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.compose-form {
+    background-color: var(--color-bg-secondary);
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.compose-form__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.compose-form__input,
+.compose-form__textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+    font-size: 1rem;
+}
+
+.compose-form__input:focus,
+.compose-form__textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.compose-form__btn {
+    background-color: var(--color-success);
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.compose-form__btn:hover {
+    background-color: #0b936a;
+}
+
+.login-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--color-bg-primary);
+}
+
+.login-box {
+    background-color: var(--color-bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-box__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.login-box__error {
+    color: var(--color-error);
+    font-size: 0.8rem;
+    min-height: 1.5rem;
+}
+
+.login-box__input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.login-box__input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.login-box__btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-box__btn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.compose-btn-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.compose-btn {
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.compose-btn:hover {
+    transform: scale(1.1);
+}
+
+.inbox-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.subscribe-btn {
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.subscribe-btn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.tiers-page {
+    background-color: var(--color-bg-secondary);
+}
+
+.tiers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+}
+
+.tiers-header h3 {
+    font-size: 1.25rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.75rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.tiers-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.tier-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tier-card--pro {
+    border-color: var(--color-ad);
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+}
+
+.tier-card h4 {
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.tier-card .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+}
+
+.tier-card .price .period {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+}
+
+.tier-card ul {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.tier-card ul li {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.tier-card ul li::before {
+    content: '✓';
+    color: var(--color-success);
+    position: absolute;
+    left: 0;
+}
+
+.tier-select-btn {
+    background-color: var(--color-accent);
+    color: white;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tier-select-btn:hover {
+    background-color: var(--color-accent-hover);
+}
 .ad-text {
-            color: var(--color-ad);
-            font-weight: 600;
-        }
-        
-        .ad-slot {
-            background-color: var(--color-bg-card);
-            border: 1px dashed var(--color-ad);
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: center;
-        }
+    color: var(--color-ad);
+    font-weight: 600;
+}
 
-        .ad-slot:hover {
-            background-color: #3a3a3a;
-        }
+.ad-slot {
+    background-color: var(--color-bg-card);
+    border: 1px dashed var(--color-ad);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-align: center;
+}
 
-        .ad-slot p {
-            font-weight: 700;
-            color: var(--color-ad);
-            margin-bottom: 0.25rem;
-        }
+.ad-slot:hover {
+    background-color: #3a3a3a;
+}
 
-        .ad-slot span {
-            font-size: 0.8rem;
-            color: var(--color-text-secondary);
-        }
-    </style>
-</head>
+.ad-slot p {
+    font-weight: 700;
+    color: var(--color-ad);
+    margin-bottom: 0.25rem;
+}
+
+.ad-slot span {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}</style></head>
 <body>
 
     <div class="login-screen" id="loginScreen">
@@ -588,37 +591,30 @@
             <div class="login-box__error" id="loginError"></div>
             <input class="login-box__input" type="text" id="username" placeholder="Username" />
             <input class="login-box__input" type="password" id="password" placeholder="Password" />
-            <button class="login-box__btn" onclick="handleLogin()">Login</button>
+            <button class="login-box__btn" id="loginBtn">Login</button>
         </div>
     </div>
 
     <div class="app-container hidden" id="app">
         <header class="app-header">
-            <div class="app-header__logo">USH</div>
-            
-            <div class="app-header__info">
+            <a href="" class="app-header__logo">USH</a>
+            <div class="app-header__info" style="text-decoration: none;">
                 <span>Bonds: <strong id="bondCount">0</strong></span>
+                <span>E-Mail: <strong id="currentemail"></strong></span>
                 <span>User: <strong id="currentUser"></strong></span>
-                <button class="app-header__logout-btn" onclick="handleLogout()">Logout</button>
+                <button class="app-header__logout-btn" id="logoutBtn">Logout</button>
             </div>
         </header>
         <main class="app-main">
             <div class="inbox-panel" id="inboxPanel">
                 <div class="inbox-header" id="inbox-header">
-                    <h2 >Inbox</h2>
-                    <button class="subscribe-btn"  onclick="showTiersPage()">Upgrade Now</button>
-                </div>   
-                  <div id="adContainer">
-                    <div class="ad-slot" onclick="fillAdEmail('Lotto@Facte', 'Play Today')">
-                        <p><strong>Want to win 2,100 Bonds?</strong></p>
-                        <span>Pay 20 Bonds for a chance to win 2,100!</span>
-                    </div>
+                    <h2>Inbox</h2>
+                    <button class="subscribe-btn" id="upgradeBtn">Upgrade Now</button>
                 </div>
-                
                 <div class="tiers-page hidden" id="tiersPage">
                     <div class="tiers-header">
                         <h3>USH Tiers</h3>
-                        <button class="close-btn" onclick="hideTiersPage()">×</button>
+                        <button class="close-btn" id="closeTiersBtn">×</button>
                     </div>
                     <div class="tiers-grid">
                         <div class="tier-card">
@@ -628,376 +624,326 @@
                                 <li>8 Emails</li>
                             </ul>
                         </div>
-                        <div class="tier-card">
-                            <h4>Ad Free</h4>
-                            <p class="price">30 Bonds <span class="period">/ month</span></p>
-                            <button class="tier-select-btn" onclick="fillAdEmail('Sales@Union', 'Inquiry: Ad Free Tier')">Select</button>
-                        </div>
                         <div class="tier-card tier-card--pro">
-                            <h4>Pro</h4>
-                            <p class="price">100 Bonds <span class="period">/ month</span></p>
+                            <h4>Premium</h4>
+                            <p class="price">120 Bonds <span class="period">/ month</span></p>
                             <ul>
                                 <li>Unlimited Emails</li>
                                 <li>Custom Themes</li>
+                                <li>Faculte Internet</li>
                                 <li>No Ads</li>
                                 <li>Early Access to New Tools</li>
                                 <li>And so much more</li>
                             </ul>
-                            <button class="tier-select-btn" onclick="fillAdEmail('Sales@Union', 'Inquiry: Pro Tier')">Select</button>
+                            <button class="tier-select-btn" data-action="compose-ad" data-recipient="Sales@Union" data-subject="Upgrade to Pro">Upgrade</button>
                         </div>
                     </div>
                 </div>
-
                 <ul class="email-list" id="inboxList"></ul>
             </div>
             <div class="email-panel" id="emailPanel">
-                <div class="email-details" id="emailDetails">
+                <div id="emailDetails">
                     <p>Select an email to view its contents.</p>
                 </div>
-
                 <form id="composeForm" class="compose-form hidden" action="https://formsubmit.co/sgburner23@outlook.com" method="POST">
                     <h3 class="compose-form__title">Compose Email</h3>
-                    
                     <input type="hidden" name="_next" value="https://unionserver1.github.io/union1/" />
                     <input type="hidden" name="_captcha" value="false" />
                     <input type="hidden" name="_template" value="table" />
-                    
                     <input type="hidden" name="name" id="formName" />
                     <input class="compose-form__input" type="text" name="recipient" id="formRecipient" placeholder="Recipient Name and Group (Vander@Union)" required />
                     <input class="compose-form__input" type="text" name="subject" id="formSubject" placeholder="Subject" required />
                     <textarea class="compose-form__textarea" name="message" id="formMessage" rows="6" placeholder="Write your message here..." required></textarea>
-                    
                     <button class="compose-form__btn" type="submit">Send Email</button>
                 </form>
             </div>
         </main>
-
         <div class="compose-btn-container">
-            <button class="compose-btn" id="emailButton" onclick="showComposeForm()">+</button>
+            <button class="compose-btn" id="composeBtn">+</button>
         </div>
     </div>
 
-    <script>
-        const users = {
-            "Joan Of Arc": {
-                password: "Sm9hbmE=",
-                bonds: 82,
-                emails: [
-                    { id: 19, from: "Sticky@CM", subject: "Cannot Happen for now", body: "CM isnt letting anyone leave because the rockefeller drama." },
-                    { id: 20, from: "Suon@SGR", subject: "Verison 1", body: "Here is what I got so far, any tips? The group began as the SG. Founded by Gott at OMMS, the SG operated as an information-gathering organization targeting students. If a student—or an associate—was considered a threat, the SG would initiate retaliatory or suppressive actions based on the intelligence it had gathered. While this was the general structure, the SG had layers of complexity in its function and governance. Following Gott’s departure, the SG expanded beyond OMMS to additional schools including North and Severn Run. Before its eventual demise, there were active plans to further expand its reach into more schools. The SG’s governing structure evolved in distinct phases. Initially, power resided solely with the Dirigerant (DG). During the second phase—a new era or reign marked by a shift in leadership—the original Dirigerant left the organization. This departure resulted in structural instability, prompting the formation of the Dirigerant’s Table. This body assumed responsibility for appointing future Dirigerants and managing the majority of non-critical operations within the SG. Along with the original Dirigerant’s exit, the SG also lost a key piece of its infrastructure: the mechanism to extend its own lifespan. The SG had been designed with two critical codes—one that would completely erase all SG-related materials, and another that would allow the extension of the SG’s operational life by one month per use. The extension code was meant to be passed from one Dirigerant to the next. Due to the abrupt departure, this transfer never occurred. As a result, the SG was set to cease operations permanently on November 1st. In May, a new conflict emerged. A group known as V5—controlled by one of the members of a separate internal faction known as the Suite—launched an attack on the SG. For a time, V5 succeeded in temporarily taking over the SG’s operations. The Suite was composed of five central figures from the SG’s original foundation: Spade, Diamond, Jack, Heart, and, toward the end, a fifth member who, while not a founder, became integrated into the group. This faction remained influential across multiple phases of the SG’s life, and later into its successor entities. Following the SG’s collapse, two new groups formed from its remnants: NE and SaVa. NE was led publicly by one entity but operated in the shadow of Spade. SaVa was led by Diamond. NE’s infrastructure was identical to the SG’s original system—only rebranded. It continued to use the same website and digital framework. During the NE’s summer operations, membership shifted. With Spade leaving for Germany, access to his terminal was delegated for continued use. It was used to maintain activity within the Suite. Operational chaos followed, driven by rising instability and conflict among the remaining factions. Ultimately, Diamond terminated the entire system. All entities, data, structures, and functions tied to the SG, NE, SaVa, and their affiliated networks were dismantled." },
-                    { id: 21, from: "David@Caps", subject: "Hello", body: "Hello, Joan, do you know who is the newest member of your group" },
-                    { id: 22, from: "SGR-TRUTH@SGR", subject: "Daily AD", body: "The truth of the group before us. The group began as the SG. Founded by Gott at OMMS, the SG operated as an information-gathering organization targeting students. If a student—or an associate—was considered a threat, the SG would initiate retaliatory or suppressive actions based on the intelligence it had gathered. While this was the general structure, the SG had layers of complexity in its function and governance. Following Gott’s departure, the SG expanded beyond OMMS to additional schools including North and Severn Run. Before its eventual demise, there were active plans to further expand its reach into more schools. The SG’s governing structure evolved in distinct phases. Initially, power resided solely with the Dirigerant (DG). During the second phase—a new era or reign marked by a shift in leadership—the original Dirigerant left the organization. This departure resulted in structural instability, prompting the formation of the Dirigerant’s Table. This body assumed responsibility for appointing future Dirigerants and managing the majority of non-critical operations within the SG. Along with the original Dirigerant’s exit, the SG also lost a key piece of its infrastructure: the mechanism to extend its own lifespan. The SG had been designed with two critical codes—one that would completely erase all SG-related materials, and another that would allow the extension of the SG’s operational life by one month per use. The extension code was meant to be passed from one Dirigerant to the next. Due to the abrupt departure, this transfer never occurred. As a result, the SG was set to cease operations permanently on November 1st. In May, a new conflict emerged. A group known as V5—controlled by one of the members of a separate internal faction known as the Suite—launched an attack on the SG. For a time, V5 succeeded in temporarily taking over the SG’s operations. The Suite was composed of five central figures from the SG’s original foundation: Spade, Diamond, Jack, Heart, and, toward the end, a fifth member who, while not a founder, became integrated into the group. This faction remained influential across multiple phases of the SG’s life, and later into its successor entities. Following the SG’s collapse, two new groups formed from its remnants: NE and SaVa. NE was led publicly by one entity but operated in the shadow of Spade. SaVa was led by Diamond. NE’s infrastructure was identical to the SG’s original system—only rebranded. It continued to use the same website and digital framework. During the NE’s summer operations, membership shifted. With Spade leaving for Germany, access to his terminal was delegated for continued use. It was used to maintain activity within the Suite. Operational chaos followed, driven by rising instability and conflict among the remaining factions. Ultimately, Diamond terminated the entire system. All entities, data, structures, and functions tied to the SG, NE, SaVa, and their affiliated networks were dismantled." },
-                    { id: 23, from: "Faculte@SGR", subject: "Election Details", body: "Hello SGR Members, your election date for next month's leader is 21/09/25. If you wish to be on the ballot, reply to this email with your Email and User." },
-                    { id: 24, from: "Suon@SGR", subject: "WE CAN WIN, My last E-Mail as leader", body: "Joan sent me 150 files that prove the SG and Spade were real. We can end it! On another note, I am not running for re-election and support Joan to become the next leader of the SGR. I will continue serving the SGR, I am stepping down because I do not believe I am fit to serve in this new period as we push forward." },
-                    { id: 25, from: "Wind@SGR", subject: "Good Luck", body: "Good Luck on the Election, you will need since you'll be going up against me." },
-                    { id: 26, from: "Faculte@SGR", subject: "Resignation", body: "Hello Members of the SGR, your leader Suon has left the SGR. The offical will remain empty until the election and appointing of the new leader. No details were given." },
-                    { id: 27, from: "Faculte@SGR", subject: "Election", body: "The 3rd Leadership Election of the Southern Group Revitalize Movement is open. The official candidates are Joan Of Arc (Joan@SGR) and Wind (Wind@SGR). Vote by replying with the email of any group member. Voting closes at 5:30 PM EDT on 09/21/25. Candidates may send 3 messages through official channels only, unofficial messaging results in disqualification." },
-                    { id: 40, from: "Napoli@Coms", subject: "Thank You", body: "I am willing to take ecomonic commitment over minting. Yet, I will take it 500 plus inflation with a max of 750." },
-                    { id: 41, from: "Wind@SGR", subject: "Up too?", body: "If we can earn up too 750, we can just earn 0. Do you mean at least?" },
-                    { id: 42, from: "Bone@SGR", subject: "What's Up", body: "I know I am not active much but I would like to get to know you and help you. Wind told me that you have some big things coming up and I want to be a part." },
-                    { id: 43, from: "Wind@SGR", subject: "Check in", body: "How is it going? I have raised 10 Bonds so far. I also heard that CM and CSP relations have gotten a bit sour over Union Tax Money for this month. Finally, we have yet to do anything to counter Rockefeller yet." },
-                    { id: 44, from: "Wind@SGR", subject: "Ok", body: "You should think of doing that." },
-                    { id: 45, from: "Faculte@SGR", subject: "Change In The 3rd Committee", body: "The Third Committee will start on September 28." },
-                    { id: 46, from: "Napoli@Coms", subject: "Check In", body: "Hello Joan, you never agreed to my full terms of 750 max with 50 starting point. Have you pulled out of the deal or not? I would like it signed by the start of the committee." },
-                    { id: 47, from: "Wind@SGR", subject: "Do not worry", body: "The Faculte@SGR email is used to talk to the Faculte through a semi-automatic system, so you’ll get an email tomorrow explaining how to format things like motions and votes properly, and for pacts, since we don’t have a clerk, you just need to reply to the leader with something simple like 'I agree.'" },
-                    { id: 48, from: "Faculte@SGR", subject: "3rd Committee", body: "The Third Committee starts tomorrow, may all new members please submit your speeches to be sent out in the openning message." },
-                    { id: 49, from: "Wind@SGR", subject: "How to", body: "make the subject '3rd Committee' and message the speech" },
-                    { id: 50, from: "Wind@SGR", subject: "Huh", body: "send it to Faculte@SGR " },
-                    { id: 51, from: "Faculte@SGR", subject: "3rd Committee", body: "The Third Committee $$  $$ The Third Committee's clerks for this month are from the Computer Science Progress and Innovation Group (CSP) and the Code Monkey Group (CM). $$  $$  $$  $$ New Member Opening Speeches $$  $$ Three of the four new members have submitted opening speeches: $$  $$  $$ From the Leader of the Southern Group Revitalize Movement, Joan Of Arc: $$  $$ Dear SGR and the greater Faculte, I am Joan of Arc, leader of the SGR. In the past, you may have seen us as strange, weird, or maybe like a cult of sorts. I can assure you we're not and are simply here to do our job, just as you all do yours. I am critically aware of Rockefeller's recent actions, along with the CAPS attempting to find and remove our newest member. I do not like Rockefeller; he seems power-hungry and a threat to the Faculte as a whole. Frankly, I think he needs to be stopped, but that is not my call to make. The SGR has made a pact with the COMS to go against Rockefeller. I hope to work with all groups in an effort to sustain the Faculte and help the groups within it flourish. Thank you, that is all. $$  $$  $$ From the President of the Faculte Socialist Group, Napoli: $$  $$ Hello Committee, we face a grave danger. Rockefeller controls more than half of all Bonds, he controls the largest company, as well as one of the largest groups. The time has come for a forceful pushback against his growing influence. We, the Faculte Socialist Group, have signed agreements with both the SGR and the Socs. We will continue to build a force that opposes Rockefeller; the time has come for this. On another note, the Coms have released a terminal to go against the Duopoly of USH and the Caps Terminal. If any group leaders wish to switch to our Community Terminal, I would give you a great deal on it.  $$  $$  $$ From the President of the Faculte Social Organization Group, Rome: $$  $$ As the newest and smallest group, we plan to show ourselves as a real force in the Faculte. $$  $$  $$  $$ Committee Membership Roster $$  $$  $$ Capitalism and Ecomonic Group: Rockefeller@Caps $$ Factory Group: Gabe@Facte $$ Computer Science Progress and Innovation Group: Starry@CSP $$ Code Monkey Group: Commander@CM $$ Faculte Socialist Group: Napoli@Coms $$ Movers Group: ET@Move $$ Southern Group Revitalize Movement: Joan@SGR $$ Faculte Social Organization Group: Rome@Socs $$  $$  $$  $$ Committee Action Format $$  $$ The Committee utilizes an automated process and manual review system for actions. All communications should be sent to the general address: Faculte@YOURGROUP. $$  $$ The required email subject line format is: [Action];[ID] $$  $$ Examples: $$  $$ To vote on Motion #15: $$ Subject: [Vote];[15] $$ Message Body: Write your vote (e.g., 'Yes,' 'No,' or 'Abstain'). $$  $$ To submit a Motion: $$ Subject: [Submit];[Motion] $$ Message Body: Write your proposed motion in full." },
-                    { id: 52, from: "Suon@Move", subject: "Hello", body: "Hello, How is it going? If you want you can submit that Motion for me but I think I will spend some time here." },
-                    { id: 53, from: "Bone@SGR", subject: "Put Me To Work", body: "You say we need money? Put me to work anything, we can not let Rockefeller win. I'm sure Frisk and Blade will help too. I will do anything to protect this group." },
-                    { id: 54, from: "Wind@SGR", subject: "Update?", body: "How is everything on the first day?" },
-                    { id: 55, from: "Faculte@SGR", subject: "Motions", body: "Two motions were brought forth today,$$$$Motion #1: To Bring More Power the Groups by *Rockefeller* $$ Allow groups to run their own elections and report results to the Faculte after they are completed.$$$$Motion #2: To bring more jobs to the Faculte by *Rome*$$ To encourage job creation and economic growth within the Faculte, each group will be required to report the number of jobs created, estimated spending opportunities, population changes, and tax contributions. These reports will be used to assess each group’s economic productivity. Based on this data, each group’s inflation-adjusted income will be modified to favor those that demonstrate higher levels of economic output, thereby rewarding active contributions to the overall economy." },
-                    { id: 56, from: "Napoli@Coms", subject: "Voting", body: "I am voting No on both #1 and #2. #1 allows Rockefeller to be a dictator, #2 would keep the large groups large and the small groups small. Cheers" },
-                    { id: 57, from: "Faculte@SGR", subject: "Motions", body: "One motion was brought forth today,$$$$Motion #3: To Remove Rockefeller by *Joan* $$Remove Rockefeller from power immediately and halt his aggressive and detrimental accumulation of wealth." },
-                    { id: 58, from: "Wind@SGR", subject: "Where is you gone?", body: "Where is you gone?" },
-                    { id: 59, from: "Wind@SGR", subject: "nothing?", body: "Really? Nothing? Carry on then I thought we were just offline." },
-                    { id: 60, from: "Faculte@SGR", subject: "Motions", body: "One motion received enough votes to have a 2nd round of vote,$$$$Motion #1: To Bring More Power the Groups by *Rockefeller* $$ Allow groups to run their own elections and report results to the Faculte after they are completed. $$$$ Along with that, one motion was brought forth yesterday: $$$$Motion #4: To Raise Faculte Tax and Set Group Tax Minimum by *Rome* $$ Faculte Tax will be set at 10% and Group Tax Minimum to 3%. Set this month's inflation to 5%; Resulting in a total of 252k Bonds." },
-                    { id: 61, from: "Faculte@SGR", subject: "The Truth", body: "Dear Committee,$$As President of the Caps, I write to formally acknowledge a recent and significant development. In the past, I have made repeated efforts to refute the existence of the Southern Group. However, last night, two of my members presented credible evidence confirming its existence.$$$$In light of this, I respectfully request that the Committee to move the SGR in to a Faculte controlled group. Its primary purpose would be to investigate the Southern Group thoroughly and compile a comprehensive history of its origins, activities, and influence.$$$$Thank you for your time and consideration." },
-                ],
-            },
-            "Vander": {
-                password: "VW5pb24=",
-                bonds: 500,
-                emails: [
-                ],
-            },
-        };
+    <script>document.addEventListener('DOMContentLoaded', () => {
+    // --- USER DATA ---
+    // User and email data is stored directly in the script.
+    const usersData = {
+        "Joan Of Arc": {
+            password: "Sm9hbmE=",
+            bonds: 182,
+                        email: "Joan@SGR",
 
-        let currentUserData = null;
-        let loggedInUsername = '';
+            emails: [
+                { id: 56, from: "Faculte@SGR", subject: "Payment", body: "100 Bonds has been payed to you for your job as Leader of the SGR. " },
+                { id: 57, from: "Rockefeller@Caps", subject: "Greetings", body: "Nice to talk to the leader of the SGR" }
+            ],
+        },
+    };
 
-        const inboxPanel = document.getElementById('inboxPanel');
-        const emailPanel = document.getElementById('emailPanel');
-        const composeForm = document.getElementById('composeForm');
-        const emailDetails = document.getElementById('emailDetails');
+    // --- STATE MANAGEMENT ---
+    const state = {
+        users: {},
+        currentUser: null,
+        currentemail: null,
+        username: '',
+        readIds: new Set(),
+    };
 
-        // --- Read Status Helpers ---
-        function getReadStatus() {
-            const status = localStorage.getItem('vmcReadStatus');
-            return status ? JSON.parse(status) : {};
-        }
+    // --- DOM ELEMENTS ---
+    const dom = {
+        loginScreen: document.getElementById('loginScreen'),
+        app: document.getElementById('app'),
+        loginError: document.getElementById('loginError'),
+        usernameInput: document.getElementById('username'),
+        passwordInput: document.getElementById('password'),
+        loginBtn: document.getElementById('loginBtn'),
+        logoutBtn: document.getElementById('logoutBtn'),
+        currentemailDisplay: document.getElementById('currentemail'),
 
-        function saveReadStatus(status) {
-            localStorage.setItem('vmcReadStatus', JSON.stringify(status));
-        }
+        currentUserDisplay: document.getElementById('currentUser'),
+        bondCountDisplay: document.getElementById('bondCount'),
+        inboxPanel: document.getElementById('inboxPanel'),
+        emailPanel: document.getElementById('emailPanel'),
+        inboxList: document.getElementById('inboxList'),
+        emailDetails: document.getElementById('emailDetails'),
+        composeForm: document.getElementById('composeForm'),
+        formName: document.getElementById('formName'),
+        formRecipient: document.getElementById('formRecipient'),
+        formSubject: document.getElementById('formSubject'),
+        formMessage: document.getElementById('formMessage'),
+        composeBtn: document.getElementById('composeBtn'),
+        upgradeBtn: document.getElementById('upgradeBtn'),
+        closeTiersBtn: document.getElementById('closeTiersBtn'),
+        tiersPage: document.getElementById('tiersPage'),
+        inboxHeader: document.getElementById('inbox-header'),
+    };
 
-        // --- Core App & Session Logic ---
-        document.addEventListener('DOMContentLoaded', () => {
-            checkLoginStatus();
-            const passwordInput = document.getElementById('password');
-            passwordInput.addEventListener('keyup', (event) => {
-                if (event.key === "Enter") {
-                    handleLogin();
-                }
-            });
-        });
+    // --- LOCAL STORAGE HELPERS ---
+    const storage = {
+        getReadStatus: () => JSON.parse(localStorage.getItem('vmcReadStatus') || '{}'),
+        saveReadStatus: (status) => localStorage.setItem('vmcReadStatus', JSON.stringify(status)),
+        getLoggedInUser: () => localStorage.getItem('loggedInVMCUser'),
+        setLoggedInUser: (username) => localStorage.setItem('loggedInVMCUser', username),
+        clearLoggedInUser: () => localStorage.removeItem('loggedInVMCUser'),
+    };
 
-        function checkLoginStatus() {
-            const savedUser = localStorage.getItem('loggedInVMCUser');
-            if (savedUser && users[savedUser]) {
-                loggedInUsername = savedUser;
-                currentUserData = users[savedUser];
-                
-                const readStatus = getReadStatus();
-                const userStatus = readStatus[loggedInUsername] || {};
-                currentUserData.readIds = new Set(userStatus.readIds || []);
-                
-                readStatus[loggedInUsername] = { readIds: Array.from(currentUserData.readIds) };
-                saveReadStatus(readStatus);
-
-                loadApp(savedUser);
-            } else {
-                document.getElementById('loginScreen').classList.remove('hidden');
-                document.getElementById('app').classList.add('hidden');
-            }
-        }
-
-        function handleLogin() {
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const errorDiv = document.getElementById('loginError');
-
-            if (users[username] && atob(users[username].password) === password) {
-                loggedInUsername = username;
-                currentUserData = users[username];
-                localStorage.setItem('loggedInVMCUser', username);
-                
-                const readStatus = getReadStatus();
-                const userStatus = readStatus[loggedInUsername] || {};
-                currentUserData.readIds = new Set(userStatus.readIds || []);
-                
-                readStatus[loggedInUsername] = { readIds: Array.from(currentUserData.readIds) };
-                saveReadStatus(readStatus);
-
-                errorDiv.textContent = '';
-                loadApp(username);
-            } else {
-                errorDiv.textContent = 'Invalid username or password.';
-            }
-        }
-
-        function handleLogout() {
-            localStorage.removeItem('loggedInVMCUser');
-            currentUserData = null;
-            loggedInUsername = '';
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('loginScreen').classList.remove('hidden');
-            document.getElementById('app').classList.add('hidden');
-        }
-
-        function loadApp(username) {
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('app').classList.remove('hidden');
-            document.getElementById('currentUser').textContent = username;
-            updateHeader();
-            renderInbox();
-        }
-
-        function updateHeader() {
-            const bonds = currentUserData.bonds;
-            const cmds = Math.floor(bonds / 1.7);
-            document.getElementById('bondCount').textContent = bonds;
-        }
-
-        function parseSimpleMarkdown(text) {
-            // NOTE: This is a very basic parser for demonstration.
-            // It does not handle nested styles or complex cases.
-            let html = text
-                // Escape HTML to prevent accidental tag interpretation
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-
-            // Headings (must be at the start of a line)
-            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-
-            // Bold (**text**)
-            html = html.replace(/\$\$/g, '<br>');
-
-            // Italic (*text*)
-            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-
-            return html;
-        }
-
-        // --- Email Rendering & Interaction ---
-        function renderInbox() {
-            const inboxList = document.getElementById("inboxList");
-            inboxList.innerHTML = "";
-
-            const recentEmails = currentUserData.emails.sort((a, b) => b.id - a.id).slice(0, 8);
+    // --- RENDERING & UI UPDATES ---
+    const ui = {
+        renderInbox: () => {
+            dom.inboxList.innerHTML = "";
+            const recentEmails = state.currentUser.emails
+                .sort((a, b) => b.id - a.id)
+                .slice(0, 5);
 
             recentEmails.forEach(email => {
                 const li = document.createElement("li");
                 li.className = "email-list__item";
                 li.dataset.emailId = email.id;
-
-                if (currentUserData.readIds.has(email.id)) {
+                if (state.readIds.has(email.id)) {
                     li.classList.add('email-list__item--read');
                 }
-
                 li.innerHTML = `
                     <span class="email-list__subject">${email.subject}</span>
                     <span class="email-list__from">From: ${email.from}</span>
                 `;
-                li.addEventListener('click', () => showEmail(email.id));
-                inboxList.appendChild(li);
+                dom.inboxList.appendChild(li);
             });
-        }
-
-        function showEmail(emailId) {
-            hideTiersPage();
-            const email = currentUserData.emails.find(e => e.id === emailId);
+        },
+        showEmail: (emailId) => {
+            ui.hideTiersPage();
+            const email = state.currentUser.emails.find(e => e.id === emailId);
             if (!email) return;
 
-            if (!currentUserData.readIds.has(emailId)) {
-                currentUserData.readIds.add(emailId);
-                const readStatus = getReadStatus();
-                if (!readStatus[loggedInUsername]) {
-                    readStatus[loggedInUsername] = {};
-                }
-                readStatus[loggedInUsername].readIds = Array.from(currentUserData.readIds);
-                saveReadStatus(readStatus);
-                renderInbox();
+            if (!state.readIds.has(emailId)) {
+                state.readIds.add(emailId);
+                const readStatus = storage.getReadStatus();
+                if (!readStatus[state.username]) readStatus[state.username] = {};
+                readStatus[state.username].readIds = Array.from(state.readIds);
+                storage.saveReadStatus(readStatus);
+                ui.renderInbox();
             }
 
             document.querySelectorAll('.email-list__item').forEach(el => {
                 el.classList.toggle('email-list__item--active', el.dataset.emailId == emailId);
             });
             
-            composeForm.classList.add('hidden');
-            emailDetails.classList.remove('hidden');
+            dom.composeForm.classList.add('hidden');
+            dom.emailDetails.classList.remove('hidden');
 
-            const formattedBody = parseSimpleMarkdown(email.body);
+            const formattedBody = email.body
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/\$\$/g, '<br>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
 
-            emailDetails.innerHTML = `
+            dom.emailDetails.innerHTML = `
                 <div class="email-details__header">
-                    <button class="email-details__back-btn" onclick="hideEmailDetails()">&lt;</button>
+                    <button class="email-details__back-btn" data-action="hide-email">&lt;</button>
                     <h3 class="email-details__subject">${email.subject}</h3>
                 </div>
                 <p class="email-details__from">From: ${email.from}</p>
                 <div class="email-details__body">${formattedBody}</div>
-                <button class="email-details__reply-btn" onclick="replyToEmail(${email.id})">Reply</button>
+                <button class="email-details__reply-btn" data-action="reply" data-email-id="${email.id}">Reply</button>
             `;
 
             if (window.innerWidth <= 768) {
-                inboxPanel.classList.add('hidden-mobile');
-                emailPanel.classList.add('active-mobile');
+                dom.inboxPanel.classList.add('hidden-mobile');
+                dom.emailPanel.classList.add('active-mobile');
             }
-        }
-        
-        function hideEmailDetails() {
-            emailPanel.classList.remove('active-mobile');
-            inboxPanel.classList.remove('hidden-mobile');
-        }
-
-        function showComposeForm() {
-            hideTiersPage();
-            emailDetails.classList.add('hidden');
-            composeForm.classList.remove('hidden');
-            
-            document.getElementById("formName").value = loggedInUsername;
+        },
+        showComposeForm: () => {
+            ui.hideTiersPage();
+            dom.emailDetails.classList.add('hidden');
+            dom.composeForm.classList.remove('hidden');
+            dom.formName.value = state.username;
             
             if (window.innerWidth <= 768) {
-                inboxPanel.classList.add('hidden-mobile');
-                emailPanel.classList.add('active-mobile');
+                dom.inboxPanel.classList.add('hidden-mobile');
+                dom.emailPanel.classList.add('active-mobile');
             }
-
-            document.getElementById("formRecipient").focus();
+            dom.formRecipient.focus();
+        },
+        hideEmailDetails: () => {
+            dom.emailPanel.classList.remove('active-mobile');
+            dom.inboxPanel.classList.remove('hidden-mobile');
+        },
+        showTiersPage: () => {
+            dom.inboxHeader.classList.add('hidden');
+            dom.inboxList.classList.add('hidden');
+            dom.tiersPage.classList.remove('hidden');
+        },
+        hideTiersPage: () => {
+            dom.inboxHeader.classList.remove('hidden');
+            dom.inboxList.classList.remove('hidden');
+            dom.tiersPage.classList.add('hidden');
+        },
+        updateHeader: () => {
+            dom.bondCountDisplay.textContent = state.currentUser.bonds;
+            dom.currentUserDisplay.textContent = state.username;
+            dom.currentemailDisplay.textContent = state.currentUser.email;
+        },
+        showApp: () => {
+            dom.loginScreen.classList.add('hidden');
+            dom.app.classList.remove('hidden');
+            ui.updateHeader();
+            ui.renderInbox();
+        },
+        showLogin: () => {
+            dom.app.classList.add('hidden');
+            dom.loginScreen.classList.remove('hidden');
+            dom.usernameInput.value = '';
+            dom.passwordInput.value = '';
         }
+    };
 
-        function replyToEmail(emailId) {
-            const email = currentUserData.emails.find(e => e.id === emailId);
+    // --- EVENT HANDLERS ---
+    const handlers = {
+        handleLogin: () => {
+            const username = dom.usernameInput.value.trim();
+            const password = dom.passwordInput.value.trim();
+
+            if (state.users[username] && atob(state.users[username].password) === password) {
+                state.username = username;
+                state.currentUser = state.users[username];
+                storage.setLoggedInUser(username);
+                
+                const readStatus = storage.getReadStatus();
+                const userStatus = readStatus[username] || {};
+                state.readIds = new Set(userStatus.readIds || []);
+
+                dom.loginError.textContent = '';
+                ui.showApp();
+            } else {
+                dom.loginError.textContent = 'Invalid username or password.';
+            }
+        },
+        handleLogout: () => {
+            storage.clearLoggedInUser();
+            state.currentUser = null;
+            state.username = '';
+            ui.showLogin();
+        },
+        checkLoginStatus: () => {
+            const savedUser = storage.getLoggedInUser();
+            if (savedUser && state.users[savedUser]) {
+                state.username = savedUser;
+                state.currentUser = state.users[savedUser];
+                
+                const readStatus = storage.getReadStatus();
+                const userStatus = readStatus[savedUser] || {};
+                state.readIds = new Set(userStatus.readIds || []);
+
+                ui.showApp();
+            } else {
+                ui.showLogin();
+            }
+        },
+        replyToEmail: (emailId) => {
+            const email = state.currentUser.emails.find(e => e.id === emailId);
             if (!email) return;
 
-            document.getElementById("formRecipient").value = email.from;
-            document.getElementById("formSubject").value = "Re: " + email.subject;
-            document.getElementById("formMessage").value = `\n\n--- Original Message ---\n> ${email.body.replace(/\n/g, '\n> ')}`;
-
-            showComposeForm();
+            dom.formRecipient.value = email.from;
+            dom.formSubject.value = "Replying to: " + email.subject;
+            dom.formMessage.value = '';
+            ui.showComposeForm();
+        },
+        fillAdEmail: (recipient, subject) => {
+            ui.hideTiersPage();
+            ui.showComposeForm();
+            dom.formRecipient.value = recipient;
+            dom.formSubject.value = subject;
+            dom.formMessage.focus();
         }
+    };
 
-        function fillAdEmail(recipient, subject) {
-            hideTiersPage();
-            showComposeForm();
-            document.getElementById("formRecipient").value = recipient;
-            document.getElementById("formSubject").value = subject;
-            document.getElementById("formMessage").focus();
-        }
+    // --- INITIALIZATION ---
+    const init = () => {
+        // Load user data directly into the state
+        state.users = usersData;
 
-        function showTiersPage() {
-                      document.getElementById('adContainer').classList.add('hidden');
+        // Setup all event listeners
+        dom.loginBtn.addEventListener('click', handlers.handleLogin);
+        dom.passwordInput.addEventListener('keyup', (e) => e.key === "Enter" && handlers.handleLogin());
+        dom.logoutBtn.addEventListener('click', handlers.handleLogout);
+        dom.composeBtn.addEventListener('click', ui.showComposeForm);
+        dom.upgradeBtn.addEventListener('click', ui.showTiersPage);
+        dom.closeTiersBtn.addEventListener('click', ui.hideTiersPage);
 
-            document.getElementById('inbox-header').classList.add('hidden');
-            document.getElementById('inboxList').classList.add('hidden');
-            document.getElementById('tiersPage').classList.remove('hidden');
-        }
-
-        function hideTiersPage() {
-                                document.getElementById('adContainer').classList.remove('hidden');
-
-            document.getElementById('inbox-header').classList.remove('hidden');
-            document.getElementById('inboxList').classList.remove('hidden');
-            document.getElementById('tiersPage').classList.add('hidden');
-        }
-
-        const form = document.getElementById('composeForm');
-        form.addEventListener("submit", (e) => {
-            const senderName = document.getElementById('formName').value;
-            const recipientInfo = document.getElementById('formRecipient').value;
-            const subject = document.getElementById('formSubject').value;
-            const message = document.getElementById('formMessage').value;
-
-            if (!senderName || !recipientInfo || !subject || !message) {
-                alert("Please fill out all fields.");
-                e.preventDefault();
-                return;
-            }
-
-            const recipientName = recipientInfo.split('@')[0];
-            
-            if (users[recipientName]) {
-                const recipient = users[recipientName];
-                const newEmailId = Math.max(...Object.values(users).flatMap(u => u.emails).map(e => e.id), 0) + 1;
-                const newEmail = {
-                    id: newEmailId,
-                    from: `${senderName}@${currentUserData.group || 'Facte'}`,
-                    subject: subject,
-                    body: message,
-                };
-                recipient.emails.push(newEmail);
-                
-                alert(`Email successfully sent to ${recipientName}.`);
-
-                form.reset();
-                form.classList.add('hidden');
-                
+        // Event delegation for dynamically created elements
+        dom.inboxList.addEventListener('click', (e) => {
+            const emailItem = e.target.closest('.email-list__item');
+            if (emailItem) {
+                const emailId = parseInt(emailItem.dataset.emailId, 10);
+                ui.showEmail(emailId);
             }
         });
-    </script>
+
+        dom.emailPanel.addEventListener('click', (e) => {
+            const target = e.target;
+            if (target.dataset.action === 'hide-email') {
+                ui.hideEmailDetails();
+            }
+            if (target.dataset.action === 'reply') {
+                const emailId = parseInt(target.dataset.emailId, 10);
+                handlers.replyToEmail(emailId);
+            }
+        });
+        
+        dom.inboxPanel.addEventListener('click', (e) => {
+            const adTarget = e.target.closest('[data-action="compose-ad"]');
+            if (adTarget) {
+                const { recipient, subject } = adTarget.dataset;
+                handlers.fillAdEmail(recipient, subject);
+            }
+        });
+
+        // Check if a user is already logged in
+        handlers.checkLoginStatus();
+    };
+
+    // Start the application
+    init();
+});</script>
 </body>
 </html>

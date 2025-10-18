@@ -1,10 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Check Back Here Someday</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DT - Leaders Information</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e6e6e6;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .org-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .org-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #e6e6e6;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .org-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .org-btn.active {
+            background: rgba(74, 107, 255, 0.3);
+            color: #ffffff;
+        }
+
+        /* Main Content Grid */
+        .leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* Leader Card Styles */
+        .leader-card {
+            background: rgba(30, 30, 46, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .leader-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .leader-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .sg { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
+        .av { background: rgba(156, 39, 176, 0.2); color: #9C27B0; }
+        .v5 { background: rgba(103, 58, 183, 0.2); color: #673AB7; }
+        .suits { background: rgba(244, 67, 54, 0.2); color: #F44336; }
+        .sglro { background: rgba(255, 152, 0, 0.2); color: #FF9800; }
+        .ne { background: rgba(33, 150, 243, 0.2); color: #2196F3; }
+        .sava { background: rgba(158, 158, 158, 0.2); color: #9E9E9E; }
+        .spade {background: rgb(225, 31, 31, 0.2); color: #e11f1f; }
+
+        .leader-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .leader-role {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .leader-desc {
+            color: #cccccc;
+            margin-top: 10px;
+            flex-grow: 1;
+        }
+
+        .leader-footer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(30, 30, 46, 0.5);
+            border-radius: 15px;
+        }
+
+        .timeline-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 20px;
+            background: rgba(40, 40, 60, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .sg-marker { background: #4CAF50; }
+        .av-marker { background: #9C27B0; }
+        .v5-marker { background: #673AB7; }
+        .suits-marker { background: #F44336; }
+        .sglro-marker { background: #FF9800; }
+        .ne-marker { background: #2196F3; }
+        .spade-marker { background: #e11f1f; }
+        .sava-marker { background: #9E9E9E; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .leaders-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 40px !important;
+            }
+            
+            .timeline-marker {
+                left: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Collective Timeline of Leaders</h1>
+            <p class="subtitle">August 29th 2024 - October 18th 2025</p>
+        </header>
+
+        <div class="org-nav">
+            <button class="org-btn active" data-org="all">All Leaders</button>
+            <button class="org-btn" data-org="sg">Southern Group</button>
+            <button class="org-btn" data-org="v5">AV/V5</button>
+            <button class="org-btn" data-org="suits">The Suits</button>
+            <button class="org-btn" data-org="ne">New Era</button>
+            <button class="org-btn" data-org="sava">SaVa</button>
+        </div>
+
+        <div class="leaders-grid">
+            <!-- Southern Group Leaders -->
+             <div class="leader-card">
+            
+    <p>A man arose and forged a kingdom.
+It flourished—vast beyond his will to bear.
+He left it, for he could not destroy
+The crown that chained him there.
+The people longed for another king.
+One rose, and with his rise came weight.
+He bargained strength for loyalty—
+Made dukes of men, and sealed his fate.
+The dukes grew proud, their hearts divine;
+They turned their power on their lord.
+The king struck back, but fell in time,
+And chaos claimed his sword.
+The kingdom burned beneath their strife,
+Its final king, with trembling hand,
+Undid his work to save the land—
+And silence swallowed life.
+Yet from the ashes, hope returned;
+A new crown glimmered, bright, forlorn.
+And just as before, the circle turned—
+A man arose, and a kingdom was born. - The Southern Kingdom Poem by Spade
+<br><br>My time as come to say good bye to this era of my life. I am sure it will continue for times to come but I will not be there to see it. - Spade</p>
+            </div>
+            <div class="leader-card" data-org="sg">
+                <div class="leader-header">
+                    <div class="leader-icon sg">DG1</div>
+                    <div class="leader-info">
+                        <h3>DG1</h3>
+                        <div class="leader-role">Southern Group Founder</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Founded the Southern Group, after trying to shut it down he left. Later coming back to finally end it.
+                </div>
+                <div class="leader-footer">First Leader</div>
+            </div>
+
+            <div class="leader-card" data-org="sg">
+                <div class="leader-header">
+                    <div class="leader-icon sg">DG2</div>
+                    <div class="leader-info">
+                        <h3>DG2</h3>
+                        <div class="leader-role">Southern Group</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Appointed by DG1 to lead the Southern Group after he left, and lasted 2 weeks before leaving the group.
+                </div>
+                <div class="leader-footer">Second Leader</div>
+            </div>
+
+            <div class="leader-card" data-org="sg">
+                <div class="leader-header">
+                    <div class="leader-icon sg">DG3</div>
+                    <div class="leader-info">
+                        <h3>DG3</h3>
+                        <div class="leader-role">Southern Group</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    The first elected leader of the Southern Group, who set the framework for the Southern Group to become the powerful group it was. He left after V5 attacked the Southern Group.
+                </div>
+                <div class="leader-footer">Third Leader</div>
+            </div>
+
+            <div class="leader-card" data-org="sg">
+                <div class="leader-header">
+                    <div class="leader-icon sg">DG4</div>
+                    <div class="leader-info">
+                        <h3>DG4</h3>
+                        <div class="leader-role">Southern Group</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    The last full leader of the Southern Group, who continued the work of DG3 and later worked with DG1 to end the Southern Group.
+                </div>
+                <div class="leader-footer">Fourth Leader</div>
+            </div>
+
+            <!-- AV Leaders -->
+            <div class="leader-card" data-org="v5">
+                <div class="leader-header">
+                    <div class="leader-icon av">1</div>
+                    <div class="leader-info">
+                        <h3>The Founder</h3>
+                        <div class="leader-role">AV</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Founded the AV group to replace the Southern Group if it was shut down.
+                </div>
+                <div class="leader-footer">First Leader</div>
+            </div>
+
+            <div class="leader-card" data-org="v5">
+                <div class="leader-header">
+                    <div class="leader-icon av">2</div>
+                    <div class="leader-info">
+                        <h3>The 2nd Leader</h3>
+                        <div class="leader-role">AV</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Originally the Vice Founder of AV, he took over after the Founder left due to the Southern Group not being shut down. He turned the AV to the Anti-SG ideology it was.
+                </div>
+                <div class="leader-footer">Second Leader</div>
+            </div>
+
+            <!-- V5 Leaders -->
+            <div class="leader-card" data-org="v5">
+                <div class="leader-header">
+                    <div class="leader-icon v5">3</div>
+                    <div class="leader-info">
+                        <h3>The 3rd Leader</h3>
+                        <div class="leader-role">AV/V5</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Built the AV into a technological centered group, and changed the name from AV to V5.
+                </div>
+                <div class="leader-footer">Third Leader</div>
+            </div>
+
+            <div class="leader-card" data-org="v5">
+                <div class="leader-header">
+                    <div class="leader-icon v5">4</div>
+                    <div class="leader-info">
+                        <h3>The 4th Leader</h3>
+                        <div class="leader-role">V5</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Continued the work of the previous leader, focusing on building the V5 into a counter-group to the Southern Group.
+                </div>
+                <div class="leader-footer">Fourth Leader</div>
+            </div>
+
+            <div class="leader-card" data-org="v5">
+                <div class="leader-header">
+                    <div class="leader-icon v5">5</div>
+                    <div class="leader-info">
+                        <h3>The 5th Leader</h3>
+                        <div class="leader-role">V5</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Most known for the V5 attack planned and executed, which led to the end of his leadership.
+                </div>
+                <div class="leader-footer">Fifth Leader</div>
+            </div>
+
+            <div class="leader-card" data-org="v5">
+                <div class="leader-header">
+                    <div class="leader-icon v5">6</div>
+                    <div class="leader-info">
+                        <h3>The 6th Leader</h3>
+                        <div class="leader-role">V5</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Tried to repair the V5 after the SG attacks but was unable to do so, leading to his resignation.
+                </div>
+                <div class="leader-footer">Sixth Leader</div>
+            </div>
+
+            <!-- The Suits -->
+            <div class="leader-card" data-org="suits">
+                <div class="leader-header">
+                    <div class="leader-icon suits">♦</div>
+                    <div class="leader-info">
+                        <h3>Diamond</h3>
+                        <div class="leader-role">The Suits</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Along with the other 3 suits, controlled the SG and later SaVa and NE. Ended the SG Timeline along with Spade.
+                </div>
+            </div>
+
+            <div class="leader-card" data-org="suits">
+                <div class="leader-header">
+                    <div class="leader-icon suits">♣</div>
+                    <div class="leader-info">
+                        <h3>Clubs</h3>
+                        <div class="leader-role">The Suits</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Along with the other 3 suits, controlled the SG. Left before the 2nd half of the SG Timeline.
+                </div>
+            </div>
+
+            <div class="leader-card" data-org="suits">
+                <div class="leader-header">
+                    <div class="leader-icon suits">♠</div>
+                    <div class="leader-info">
+                        <h3>Spade</h3>
+                        <div class="leader-role">The Suits</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Along with the other 3 suits, controlled the SG and later SaVa and NE. Ended the SG Timeline along with Diamond. Would later create the Faculte (Spade Timeline).
+                </div>
+            </div>
+
+            <div class="leader-card" data-org="suits">
+                <div class="leader-header">
+                    <div class="leader-icon suits">♥</div>
+                    <div class="leader-info">
+                        <h3>Hearts</h3>
+                        <div class="leader-role">The Suits</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                     Along with the other 3 suits, controlled the SG. Left before the 2nd half of the SG Timeline.
+                </div>
+            </div>
+
+            <!-- SGLRO -->
+            <div class="leader-card" data-org="sglro">
+                <div class="leader-header">
+                    <div class="leader-icon sglro">M</div>
+                    <div class="leader-info">
+                        <h3>Maintainer</h3>
+                        <div class="leader-role">SGLRO</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    Was in charge of selling off the Southern Group's assets and ensuring a smooth transition after the group's dissolution.
+                </div>
+                <div class="leader-footer">Maintainer</div>
+            </div>
+
+            <!-- New Era -->
+            <div class="leader-card" data-org="ne">
+                <div class="leader-header">
+                    <div class="leader-icon ne">NE1</div>
+                    <div class="leader-info">
+                        <h3>DG1</h3>
+                        <div class="leader-role">New Era</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    The founder and first leader of the New Era, a group focused on rebuilding and uniting the community after the fall of the Southern Group. He left the group after he was voted from power.
+                </div>
+                <div class="leader-footer">First Leader</div>
+            </div>
+
+            <!-- SaVa -->
+            <div class="leader-card" data-org="sava">
+                <div class="leader-header">
+                    <div class="leader-icon sava">PM1</div>
+                    <div class="leader-info">
+                        <h3>PM1</h3>
+                        <div class="leader-role">SaVa</div>
+                    </div>
+                </div>
+                <div class="leader-desc">
+                    The first Prime Minister of SaVa.
+                </div>
+                <div class="leader-footer">First Prime Minister</div>
+            </div>
+
+           
+
+        </div>
+
+        
+    </div>
+
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const orgButtons = document.querySelectorAll('.org-btn');
+            const leaderCards = document.querySelectorAll('.leader-card');
+            
+            orgButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    orgButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const org = this.getAttribute('data-org');
+                    
+                    // Show/hide cards based on selection
+                    leaderCards.forEach(card => {
+                        if (org === 'all' || card.getAttribute('data-org') === org) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
 </html>
